@@ -1,0 +1,27 @@
+@import "~styles/variables";
+
+.app {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  &-header {
+    padding: $space * 4;
+    flex-shrink: 0;
+
+    &-title {
+      font-size: $font-size-large * 1.25;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &-body {
+    padding: $space * 4;
+    display: flex;
+    flex-grow: 1;
+
+    overflow: auto;
+  }
+}

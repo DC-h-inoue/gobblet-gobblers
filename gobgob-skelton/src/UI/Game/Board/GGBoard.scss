@@ -1,0 +1,9 @@
+@import '~styles/variables';
+
+.gg_board {
+  display: grid;
+  grid-template-columns: $square-size $square-size $square-size;
+  grid-template-rows: $square-size $square-size $square-size;
+
+  border: 4px solid $border-color-base;
+}

@@ -5,7 +5,7 @@ import { ActionType, MOVE_PIECE_FROM_STAND, MOVE_PIECE_ON_BOARD } from './action
 // #endregion
 
 // #region 型定義
-type GameState = {
+export type GameState = {
   boardPieces: Piece[][];
   player1Pieces: Piece[];
   player2Pieces: Piece[];

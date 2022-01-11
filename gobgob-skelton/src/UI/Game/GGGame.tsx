@@ -1,7 +1,12 @@
 // #region import宣言
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
+
 import GGPieceStand from 'UI/Game/PieceStand/GGPieceStand';
 import GGBoard from 'UI/Game/Board/GGBoard';
 import { PLAYER } from 'utils/constants';
+import { GameState } from 'store/game/reducer';
+import { movePieceFromStandAction, movePieceStandOnBoardAction } from 'store/game/actions';
 
 import './GGGame.scss';
 // #endregion
@@ -10,6 +15,18 @@ import './GGGame.scss';
 // #region 定数
 // #endregion
 // #region 内部関数
+const mapStandToProps = (state: GameState) => {
+  return {
+    boardPieces: state.boardPieces
+  }
+};
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return bindActionCreators(
+    {movePieceFromStandAction, movePieceStandOnBoardAction},
+    dispatch
+  )  
+};
 // #endregion
 // #region 公開関数
 // #endregion
@@ -39,5 +56,5 @@ const GGGame = () => {
   // #endregion
 };
 
-export default GGGame;
+export default connect(mapStandToProps, mapDispatchToProps)(GGGame);
 // #endregion

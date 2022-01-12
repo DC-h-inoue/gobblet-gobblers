@@ -13,7 +13,7 @@ export type GameState = {
 // #endregion
 // #region 定数
 const INITIAL_STATE: GameState = {
-  boardPieces: Array(9).fill([]),
+  boardPieces: Array(9).fill([{ size: PIECE_SIZE.L, player: PLAYER.P1 }]),
   player1Pieces: [
     { size: PIECE_SIZE.L, player: PLAYER.P1 },
     { size: PIECE_SIZE.L, player: PLAYER.P1 },

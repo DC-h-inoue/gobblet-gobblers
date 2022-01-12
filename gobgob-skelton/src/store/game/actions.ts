@@ -9,7 +9,7 @@ export type ActionType<T> = {
   payload: T;
 };
 
-export type MovePiecePayload = {
+type MovePiecePayload = {
   piece: Piece;
   toIndex: number;
   fromIndex?: number;

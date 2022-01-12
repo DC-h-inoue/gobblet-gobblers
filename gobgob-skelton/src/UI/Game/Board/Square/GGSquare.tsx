@@ -1,8 +1,9 @@
 // #region import宣言
 import { FC } from 'react';
-import GGPiece from 'UI/Game/Piece/GGPiece';
 
 import { Piece } from 'utils/types';
+import GGPiece from 'UI/Game/Piece/GGPiece';
+
 import './GGSquare.scss';
 // #endregion
 // #region 型定義
@@ -38,24 +39,15 @@ const GGSquare: FC<Props> = ({ pieceHistory, index }) => {
   // #region 副作用処理
   // #endregion
   // #region レンダリング処理
-  
+
   // 盤面のマスに駒が置かれている場合は駒を描画するJSX要素を返す
-  if(pieceHistory !== null){
-    return(
-      <div className="gg_square">
-        <GGPiece 
-          className={`${pieceHistory[0].size} ${pieceHistory[0].player === 'Player1' ? 'p1' : 'p2'}`}
-          piece={pieceHistory[0]}
-          boardSquareIndex={index}
-        />
-      </div>
-    );
-  }
-  else{
-    return(
-      <div className="gg_square"></div>
-    );
-  }
+  return (
+    <div className="gg_square">
+      {pieceHistory.length > 0 && (
+        <GGPiece piece={pieceHistory[pieceHistory.length - 1]} boardSquareIndex={index} />
+      )}
+    </div>
+  );
   // #endregion
 };
 

@@ -5,7 +5,7 @@ import { ActionType, MOVE_PIECE_FROM_STAND, MOVE_PIECE_ON_BOARD } from './action
 // #endregion
 
 // #region 型定義
-export type GameState = {
+type GameState = {
   boardPieces: Piece[][];
   player1Pieces: Piece[];
   player2Pieces: Piece[];
@@ -13,7 +13,7 @@ export type GameState = {
 // #endregion
 // #region 定数
 const INITIAL_STATE: GameState = {
-  boardPieces: Array(9).fill([{ size: PIECE_SIZE.L, player: PLAYER.P1 }]),
+  boardPieces: Array(9).fill([]),
   player1Pieces: [
     { size: PIECE_SIZE.L, player: PLAYER.P1 },
     { size: PIECE_SIZE.L, player: PLAYER.P1 },

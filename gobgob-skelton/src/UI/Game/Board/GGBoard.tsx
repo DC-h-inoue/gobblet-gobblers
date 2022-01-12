@@ -3,8 +3,9 @@ import { FC } from 'react';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 
-import './GGBoard.scss';
 import GGSquare from './Square/GGSquare';
+
+import './GGBoard.scss';
 // #endregion
 // #region 型定義
 type Props = {
@@ -21,15 +22,15 @@ type Props = {
 // #region 公開モジュール
 /**
  * 盤面を表示するコンポーネント
- * 
+ *
  * @param  {className} 外部から指定するクラス名
  * @return GGSquareコンポーネントのJSX要素
  */
 const GGBoard: FC<Props> = ({ className }) => {
   // #region state変数
-  const boardPieces = useSelector(state => state.game.boardPieces);
   // #endregion
   // #region 内部変数
+  const { boardPieces } = useSelector((state) => state.game);
   // #endregion
   // #region 内部関数
   // #endregion
@@ -38,15 +39,11 @@ const GGBoard: FC<Props> = ({ className }) => {
   // #region 副作用処理
   // #endregion
   // #region レンダリング処理
-  return(
+  return (
     <div className={classNames('gg_board', className)}>
-      {boardPieces.map((pieceHistory, index) =>
-        {
-          return(
-            <GGSquare pieceHistory={pieceHistory} index={index} key={index.toString()} />
-          );
-        }
-      )}
+      {boardPieces.map((pieceHistory, index) => (
+        <GGSquare pieceHistory={pieceHistory} index={index} key={index.toString()} />
+      ))}
     </div>
   );
   // #endregion

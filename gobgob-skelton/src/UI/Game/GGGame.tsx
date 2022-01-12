@@ -8,6 +8,7 @@ import './GGGame.scss';
 // #region 型定義
 // #endregion
 // #region 定数
+
 // #endregion
 // #region 内部関数
 // #endregion

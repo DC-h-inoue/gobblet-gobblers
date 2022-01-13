@@ -1,8 +1,11 @@
 // #region import宣言
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 
 import { Player } from 'utils/types';
+import { PLAYER } from 'utils/constants';
+import GGPiece from '../Piece/GGPiece';
 
 import './GGPieceStand.scss';
 // #endregion
@@ -21,10 +24,18 @@ type Props = {
 // #endregion
 // #region 公開モジュール
 
-const GGPieceStand: FC<Props> = ({ className }) => {
+/**
+ * 駒置き場を表すコンポーネント
+ *
+ * @param {className} 外部から指定するクラス名
+ * @param {player} 駒置き場のプレーヤー情報
+ * @return 駒置き場を表すJSX要素
+ */
+const GGPieceStand: FC<Props> = ({ className, player }) => {
   // #region state変数
   // #endregion
   // #region 内部変数
+  const { player1Pieces, player2Pieces } = useSelector((state) => state.game);
   // #endregion
   // #region 内部関数
   // #endregion
@@ -33,7 +44,17 @@ const GGPieceStand: FC<Props> = ({ className }) => {
   // #region 副作用処理
   // #endregion
   // #region レンダリング処理
-  return <div className={classNames('gg_piece-stand', className)}></div>;
+
+  // playerがP1ならP1の駒の、P2ならP2の駒のJSX要素を返す
+  return (
+    <div className={classNames('gg_piece-stand', className)}>
+      {(player === PLAYER.P1 ? player1Pieces : player2Pieces).map((piece, index) => (
+        <div className="piece-item" key={index.toString()}>
+          <GGPiece piece={piece} />
+        </div>
+      ))}
+    </div>
+  );
   // #endregion
 };
 

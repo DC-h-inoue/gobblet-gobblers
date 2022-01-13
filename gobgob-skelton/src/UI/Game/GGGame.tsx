@@ -8,6 +8,7 @@ import './GGGame.scss';
 // #region 型定義
 // #endregion
 // #region 定数
+
 // #endregion
 // #region 内部関数
 // #endregion
@@ -15,6 +16,10 @@ import './GGGame.scss';
 // #endregion
 
 // #region 公開モジュール
+/**
+ * ゲームの進行状況を表示するコンポーネント
+ * @returns GGBoard、GGPieceStandコンポーネントのJSX要素
+ */
 const GGGame = () => {
   // #region state変数
   // #endregion

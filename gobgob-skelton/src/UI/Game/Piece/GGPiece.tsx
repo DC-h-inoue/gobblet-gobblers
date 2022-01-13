@@ -34,7 +34,9 @@ const GGPiece: FC<Props> = ({ className, piece }) => {
     <Avatar
       classes={{
         root: classNames(
-          `gg_piece piece ${piece.size} ${piece.player === PLAYER.P1 ? 'p1' : 'p2'}`,
+          'gg_piece piece',
+          piece.size,
+          piece.player === PLAYER.P1 ? 'p1' : 'p2',
           className
         ),
       }}

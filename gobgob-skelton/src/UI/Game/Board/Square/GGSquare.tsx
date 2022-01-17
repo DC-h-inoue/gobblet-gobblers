@@ -1,7 +1,12 @@
 // #region import宣言
 import { FC } from 'react';
+import { useDispatch } from 'react-redux';
+import { useDrop } from 'react-dnd';
 
+import { movePieceFromStandAction, movePieceStandOnBoardAction } from 'store/game/actions';
 import { Piece } from 'utils/types';
+import { GG_PIECE } from 'utils/constants';
+import { validatePieceMoving } from 'utils/helper';
 import GGPiece from 'UI/Game/Piece/GGPiece';
 
 import './GGSquare.scss';
@@ -31,6 +36,23 @@ const GGSquare: FC<Props> = ({ pieceHistory, index }) => {
   // #region state変数
   // #endregion
   // #region 内部変数
+  const dispatch = useDispatch();
+  const [, pieceDrop] = useDrop(
+    () => ({
+      accept: GG_PIECE,
+      canDrop: (item: { piece: Piece; index: number }) =>
+        validatePieceMoving(item.piece, pieceHistory[pieceHistory.length - 1]),
+      drop: (item: { piece: Piece; index: number }) => {
+        dispatch(
+          item.index === -1
+            ? movePieceFromStandAction(item.piece, index)
+            : movePieceStandOnBoardAction(item.piece, index, item.index)
+        );
+      },
+    }),
+    [pieceHistory, index]
+  );
+
   // #endregion
   // #region 内部関数
   // #endregion
@@ -42,7 +64,7 @@ const GGSquare: FC<Props> = ({ pieceHistory, index }) => {
 
   // 盤面のマスに駒が置かれている場合は駒を描画するJSX要素を返す
   return (
-    <div className="gg_square">
+    <div className="gg_square" ref={pieceDrop}>
       {pieceHistory.length > 0 && (
         <GGPiece piece={pieceHistory[pieceHistory.length - 1]} boardSquareIndex={index} />
       )}

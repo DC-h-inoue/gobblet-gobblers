@@ -37,7 +37,7 @@ const GGSquare: FC<Props> = ({ pieceHistory, index }) => {
   // #endregion
   // #region 内部変数
   const dispatch = useDispatch();
-  const [, pieceDrop] = useDrop(
+  const [, squareDropRef] = useDrop(
     () => ({
       accept: GG_PIECE,
       canDrop: (item: { piece: Piece; index: number }) =>
@@ -50,7 +50,7 @@ const GGSquare: FC<Props> = ({ pieceHistory, index }) => {
         );
       },
     }),
-    [pieceHistory, index]
+    [pieceHistory]
   );
 
   // #endregion
@@ -64,7 +64,7 @@ const GGSquare: FC<Props> = ({ pieceHistory, index }) => {
 
   // 盤面のマスに駒が置かれている場合は駒を描画するJSX要素を返す
   return (
-    <div className="gg_square" ref={pieceDrop}>
+    <div className="gg_square" ref={squareDropRef}>
       {pieceHistory.length > 0 && (
         <GGPiece piece={pieceHistory[pieceHistory.length - 1]} boardSquareIndex={index} />
       )}

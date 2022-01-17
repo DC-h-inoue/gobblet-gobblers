@@ -28,18 +28,19 @@ type Props = {
  *
  * @param {className} 外部から指定するクラス名
  * @param {piece} 駒の情報
+ * @param {boardSquareIndex} マスの位置情報
  * @return 駒を表すJSX要素
  */
 const GGPiece: FC<Props> = ({ className, piece, boardSquareIndex }) => {
   // #region state変数
   // #endregion
   // #region 内部変数
-  const [, pieceDrag] = useDrag(
+  const [, pieceDragRef] = useDrag(
     () => ({
       type: GG_PIECE,
       item: { piece: piece, index: boardSquareIndex },
     }),
-    [piece, boardSquareIndex]
+    [piece]
   );
   // #endregion
   // #region 内部関数
@@ -51,7 +52,7 @@ const GGPiece: FC<Props> = ({ className, piece, boardSquareIndex }) => {
   // #region レンダリング処理
   return (
     <Avatar
-      ref={pieceDrag}
+      ref={pieceDragRef}
       classes={{
         root: classNames(
           'gg_piece piece',

@@ -44,14 +44,14 @@ export function reducer(state = INITIAL_STATE, action: ActionType<any>) {
     // #region MOVE_PIECE_FROM_STAND
     case MOVE_PIECE_FROM_STAND: {
       // 盤面情報の新規作成
-      const newBoardPieces = state.boardPieces.map((piece, index) =>
-        index === action.payload.toIndex ? [...piece, action.payload.piece] : piece
+      const newBoardPieces = state.boardPieces.map((squarePieces, index) =>
+        index === action.payload.toIndex ? [...squarePieces, action.payload.piece] : squarePieces
       );
 
       // 駒置き場の情報の新規作成
       const playerPieces =
         action.payload.piece.player === PLAYER.P1 ? state.player1Pieces : state.player2Pieces;
-      const newPlayerPieces = playerPieces.map((piece) => piece);
+      const newPlayerPieces = [...playerPieces];
       newPlayerPieces.splice(
         playerPieces.findIndex((element) => element === action.payload.piece),
         1
@@ -66,13 +66,14 @@ export function reducer(state = INITIAL_STATE, action: ActionType<any>) {
 
     // #region MOVE_PIECE_ON_BOARD
     case MOVE_PIECE_ON_BOARD: {
-      const newBoardPieces = state.boardPieces.map((piece, index) => {
+      // 駒の移動先・移動元のマスの配置履歴を更新した、盤面情報の新規作成
+      const newBoardPieces = state.boardPieces.map((squarePieces, index) => {
         if (index === action.payload.toIndex) {
-          return [...piece, action.payload.piece];
+          return [...squarePieces, action.payload.piece];
         } else if (index === action.payload.fromIndex) {
-          return piece.slice(0, piece.length - 1);
+          return squarePieces.slice(0, squarePieces.length - 1);
         } else {
-          return piece;
+          return squarePieces;
         }
       });
 

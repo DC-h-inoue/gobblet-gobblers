@@ -1,7 +1,12 @@
 // #region import宣言
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import GGPieceStand from 'UI/Game/PieceStand/GGPieceStand';
 import GGBoard from 'UI/Game/Board/GGBoard';
 import { PLAYER } from 'utils/constants';
+import { Player } from 'utils/types';
+import { checkWinner } from 'utils/helper';
 
 import './GGGame.scss';
 // #endregion
@@ -22,14 +27,29 @@ import './GGGame.scss';
  */
 const GGGame = () => {
   // #region state変数
+  const [winner, setWinner] = useState<Player | null>(null);
   // #endregion
   // #region 内部変数
+  const { boardPieces } = useSelector((state) => state.game);
   // #endregion
   // #region 内部関数
   // #endregion
   // #region イベントハンドラ
   // #endregion
   // #region 副作用処理
+
+  // 勝利プレイヤーの更新
+  useEffect(() => {
+    setWinner(checkWinner(boardPieces));
+  });
+
+  // 勝利プレイヤーの表示
+  useEffect(() => {
+    if (winner) {
+      alert(`ゲーム終了です！${winner}の勝ちです`);
+    }
+  });
+
   // #endregion
   // #region レンダリング処理
   return (

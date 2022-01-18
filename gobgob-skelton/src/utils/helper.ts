@@ -47,6 +47,7 @@ export function checkWinner(boardState: Piece[][]) {
   const isGameFinished = checkLines.find((line) => {
     const [firstSquare, secondSquare, thirdSquare] = line;
 
+    // ライン上のいずれかのマスに何も置かれていなかったら判定せずに終了
     if (
       boardState[firstSquare].length - 1 < 0 ||
       boardState[secondSquare].length - 1 < 0 ||
@@ -55,6 +56,7 @@ export function checkWinner(boardState: Piece[][]) {
       return false;
     }
 
+    // ライン上のマスを確認して勝敗判定を行う
     return (
       boardState[firstSquare][boardState[firstSquare].length - 1].player &&
       boardState[firstSquare][boardState[firstSquare].length - 1].player ===

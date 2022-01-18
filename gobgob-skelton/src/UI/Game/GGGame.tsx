@@ -48,7 +48,7 @@ const GGGame = () => {
     if (winner) {
       alert(`ゲーム終了です！${winner}の勝ちです`);
     }
-  });
+  }, [winner]);
 
   // #endregion
   // #region レンダリング処理

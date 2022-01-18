@@ -28,8 +28,8 @@ type Props = {
 /**
  * 盤面のマスの情報を表すコンポーネント
  *
- * @param pieceHistory
- * @param index
+ * @param {Piece[]} pieceHistory 駒の配置履歴
+ * @param {number} index 盤面のマスのIndex
  * @return 盤面のマスの情報を表すJSX要素
  */
 const GGSquare: FC<Props> = ({ pieceHistory, index }) => {

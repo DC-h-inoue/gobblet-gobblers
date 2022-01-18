@@ -66,11 +66,14 @@ export function reducer(state = INITIAL_STATE, action: ActionType<any>) {
 
     // #region MOVE_PIECE_ON_BOARD
     case MOVE_PIECE_ON_BOARD: {
-      // 駒の移動先・移動元のマスの配置履歴を更新した、盤面情報の新規作成
+      // 盤面情報の新規作成
       const newBoardPieces = state.boardPieces.map((squarePieces, index) => {
+        // 駒の移動先のマスの配置履歴を更新
         if (index === action.payload.toIndex) {
           return [...squarePieces, action.payload.piece];
-        } else if (index === action.payload.fromIndex) {
+        }
+        // 駒の移動元のマスの配置履歴を更新
+        else if (index === action.payload.fromIndex) {
           return squarePieces.slice(0, squarePieces.length - 1);
         } else {
           return squarePieces;

@@ -26,9 +26,9 @@ type Props = {
 /**
  * 駒を表すコンポーネント
  *
- * @param {className} 外部から指定するクラス名
- * @param {piece} 駒の情報
- * @param {boardSquareIndex} マスの位置情報
+ * @param {string?} className 外部から指定するクラス名
+ * @param {Piece} piece 駒の情報
+ * @param {number?} boardSquareIndex マスの位置情報
  * @return 駒を表すJSX要素
  */
 const GGPiece: FC<Props> = ({ className, piece, boardSquareIndex }) => {

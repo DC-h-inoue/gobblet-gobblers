@@ -27,8 +27,8 @@ type Props = {
 /**
  * 駒置き場を表すコンポーネント
  *
- * @param {className} 外部から指定するクラス名
- * @param {player} 駒置き場のプレーヤー情報
+ * @param {string?} className 外部から指定するクラス名
+ * @param {Player} player 駒置き場のプレーヤー情報
  * @return 駒置き場を表すJSX要素
  */
 const GGPieceStand: FC<Props> = ({ className, player }) => {

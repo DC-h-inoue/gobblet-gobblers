@@ -23,7 +23,7 @@ type Props = {
 /**
  * 盤面を表示するコンポーネント
  *
- * @param  {className} 外部から指定するクラス名
+ * @param  {string?} className 外部から指定するクラス名
  * @return GGSquareコンポーネントのJSX要素
  */
 const GGBoard: FC<Props> = ({ className }) => {

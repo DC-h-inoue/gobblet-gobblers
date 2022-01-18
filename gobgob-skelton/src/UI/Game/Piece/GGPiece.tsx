@@ -2,9 +2,10 @@
 import { FC } from 'react';
 import { Avatar } from '@mui/material';
 import classNames from 'classnames';
+import { useDrag } from 'react-dnd';
 
 import { Piece } from 'utils/types';
-import { PLAYER } from 'utils/constants';
+import { GG_PIECE, PLAYER } from 'utils/constants';
 
 import './GGPiece.scss';
 // #endregion
@@ -25,13 +26,33 @@ type Props = {
 /**
  * 駒を表すコンポーネント
  *
- * @param {className} 外部から指定するクラス名
- * @param {piece} 駒の情報
+ * @param {string?} className 外部から指定するクラス名
+ * @param {Piece} piece 駒の情報
+ * @param {number?} boardSquareIndex マスの位置情報
  * @return 駒を表すJSX要素
  */
-const GGPiece: FC<Props> = ({ className, piece }) => {
+const GGPiece: FC<Props> = ({ className, piece, boardSquareIndex }) => {
+  // #region state変数
+  // #endregion
+  // #region 内部変数
+  const [, pieceDragRef] = useDrag(
+    () => ({
+      type: GG_PIECE,
+      item: { piece: piece, index: boardSquareIndex },
+    }),
+    [piece]
+  );
+  // #endregion
+  // #region 内部関数
+  // #endregion
+  // #region イベントハンドラ
+  // #endregion
+  // #region 副作用処理
+  // #endregion
+  // #region レンダリング処理
   return (
     <Avatar
+      ref={pieceDragRef}
       classes={{
         root: classNames(
           'gg_piece piece',
@@ -44,6 +65,7 @@ const GGPiece: FC<Props> = ({ className, piece }) => {
       {piece.size[0].toUpperCase()}
     </Avatar>
   );
+  // #endregion
 };
 
 export default GGPiece;

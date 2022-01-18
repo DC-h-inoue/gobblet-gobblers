@@ -27,8 +27,8 @@ type Props = {
 /**
  * 駒置き場を表すコンポーネント
  *
- * @param {className} 外部から指定するクラス名
- * @param {player} 駒置き場のプレーヤー情報
+ * @param {string?} className 外部から指定するクラス名
+ * @param {Player} player 駒置き場のプレーヤー情報
  * @return 駒置き場を表すJSX要素
  */
 const GGPieceStand: FC<Props> = ({ className, player }) => {
@@ -50,7 +50,7 @@ const GGPieceStand: FC<Props> = ({ className, player }) => {
     <div className={classNames('gg_piece-stand', className)}>
       {(player === PLAYER.P1 ? player1Pieces : player2Pieces).map((piece, index) => (
         <div className="piece-item" key={index.toString()}>
-          <GGPiece piece={piece} />
+          <GGPiece piece={piece} boardSquareIndex={-1} />
         </div>
       ))}
     </div>

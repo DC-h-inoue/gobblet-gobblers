@@ -1,6 +1,6 @@
 // #region import宣言
 import { PIECE_SIZE, PLAYER } from 'utils/constants';
-import { Piece } from 'utils/types';
+import { Piece, Player } from 'utils/types';
 import { ActionType, MOVE_PIECE_FROM_STAND, MOVE_PIECE_ON_BOARD } from './actions';
 // #endregion
 
@@ -9,6 +9,7 @@ type GameState = {
   boardPieces: Piece[][];
   player1Pieces: Piece[];
   player2Pieces: Piece[];
+  playingPlayer: Player;
 };
 // #endregion
 // #region 定数
@@ -30,6 +31,7 @@ const INITIAL_STATE: GameState = {
     { size: PIECE_SIZE.S, player: PLAYER.P2 },
     { size: PIECE_SIZE.S, player: PLAYER.P2 },
   ],
+  playingPlayer: PLAYER.P1,
 };
 // #endregion
 // #region 内部関数
@@ -57,10 +59,23 @@ export function reducer(state = INITIAL_STATE, action: ActionType<any>) {
         1
       );
 
+      // 現在の手番情報の新規作成
+      const newPlayingPlayer = state.playingPlayer === PLAYER.P1 ? PLAYER.P2 : PLAYER.P1;
+
       // 動かされた駒の情報に応じた駒置き場の情報の更新
       return action.payload.piece.player === PLAYER.P1
-        ? { ...state, boardPieces: newBoardPieces, player1Pieces: newPlayerPieces }
-        : { ...state, boardPieces: newBoardPieces, player2Pieces: newPlayerPieces };
+        ? {
+            ...state,
+            boardPieces: newBoardPieces,
+            player1Pieces: newPlayerPieces,
+            playingPlayer: newPlayingPlayer,
+          }
+        : {
+            ...state,
+            boardPieces: newBoardPieces,
+            player2Pieces: newPlayerPieces,
+            playingPlayer: newPlayingPlayer,
+          };
     }
     // #endregion
 
@@ -80,7 +95,10 @@ export function reducer(state = INITIAL_STATE, action: ActionType<any>) {
         }
       });
 
-      return { ...state, boardPieces: newBoardPieces };
+      // 現在の手番情報の新規作成
+      const newPlayingPlayer = state.playingPlayer === PLAYER.P1 ? PLAYER.P2 : PLAYER.P1;
+
+      return { ...state, boardPieces: newBoardPieces, playingPlayer: newPlayingPlayer };
     }
     // #endregion
 

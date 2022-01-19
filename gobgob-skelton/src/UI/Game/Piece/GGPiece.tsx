@@ -8,6 +8,7 @@ import { Piece } from 'utils/types';
 import { GG_PIECE, PLAYER } from 'utils/constants';
 
 import './GGPiece.scss';
+import { useSelector } from 'react-redux';
 // #endregion
 // #region 型定義
 type Props = {
@@ -35,12 +36,14 @@ const GGPiece: FC<Props> = ({ className, piece, boardSquareIndex }) => {
   // #region state変数
   // #endregion
   // #region 内部変数
+  const { playingPlayer } = useSelector((state) => state.game);
   const [, pieceDragRef] = useDrag(
     () => ({
       type: GG_PIECE,
       item: { piece: piece, index: boardSquareIndex },
+      canDrag: () => playingPlayer === piece.player,
     }),
-    [piece]
+    [piece, playingPlayer]
   );
   // #endregion
   // #region 内部関数
@@ -58,6 +61,8 @@ const GGPiece: FC<Props> = ({ className, piece, boardSquareIndex }) => {
           'gg_piece piece',
           piece.size,
           piece.player === PLAYER.P1 ? 'p1' : 'p2',
+          piece.player === playingPlayer ? 'is-valid-dragging' : 'is-invalid-dragging',
+          boardSquareIndex !== -1 ? 'on-board' : 'on-piece-stand',
           className
         ),
       }}

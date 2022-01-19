@@ -30,7 +30,7 @@ const GGGame = () => {
   const [winner, setWinner] = useState<Player | null>(null);
   // #endregion
   // #region 内部変数
-  const { boardPieces } = useSelector((state) => state.game);
+  const { boardPieces, playingPlayer } = useSelector((state) => state.game);
   // #endregion
   // #region 内部関数
   // #endregion
@@ -60,6 +60,7 @@ const GGGame = () => {
   // #region レンダリング処理
   return (
     <div className="gg_game">
+      <div className="playing-player-info">{playingPlayer}のターン</div>
       <GGBoard />
       <div className="piece-stand-container">
         <GGPieceStand className="piece-stand" player={PLAYER.P1} />

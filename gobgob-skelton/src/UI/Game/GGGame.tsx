@@ -41,13 +41,14 @@ const GGGame = () => {
   // 勝利プレイヤーの更新
   useEffect(() => {
     setWinner(checkWinner(boardPieces));
-  });
+  }, [boardPieces]);
 
   // 勝利プレイヤーの表示
   useEffect(() => {
     if (winner) {
       alert(`ゲーム終了です！${winner}の勝ちです`);
     }
+    setWinner(null);
   }, [winner]);
 
   // #endregion

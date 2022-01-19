@@ -43,33 +43,21 @@ export function checkWinner(boardState: Piece[][]) {
     [2, 4, 6],
   ];
 
-  // 勝利条件を満たすラインが無いか走査する
-  const isGameFinished = checkLines.find((line) => {
-    const [firstSquare, secondSquare, thirdSquare] = line;
-
-    // ライン上のいずれかのマスに何も置かれていなかったら判定せずに終了
-    if (
-      boardState[firstSquare].length - 1 < 0 ||
-      boardState[secondSquare].length - 1 < 0 ||
-      boardState[thirdSquare].length - 1 < 0
-    ) {
-      return false;
-    }
+  // 勝利条件を満たすライン情報を格納
+  const winnerLine = checkLines.find((checkLine) => {
+    // ライン上の各マスの情報を格納
+    const [firstSquare, midSquare, lastSquare] = checkLine.map((square) => boardState[square]);
 
     // ライン上のマスを確認して勝敗判定を行う
     return (
-      boardState[firstSquare][boardState[firstSquare].length - 1].player &&
-      boardState[firstSquare][boardState[firstSquare].length - 1].player ===
-        boardState[secondSquare][boardState[secondSquare].length - 1].player &&
-      boardState[firstSquare][boardState[firstSquare].length - 1].player ===
-        boardState[thirdSquare][boardState[thirdSquare].length - 1].player
+      firstSquare[firstSquare.length - 1] &&
+      firstSquare[firstSquare.length - 1].player === midSquare[midSquare.length - 1]?.player &&
+      firstSquare[firstSquare.length - 1].player === lastSquare[lastSquare.length - 1]?.player
     );
   });
 
   // 勝利条件を満たすラインの先頭要素のプレイヤーを勝利プレイヤーとする
-  return isGameFinished
-    ? boardState[isGameFinished[0]][boardState[isGameFinished[0]].length - 1].player
-    : null;
+  return winnerLine ? boardState[winnerLine[0]][boardState[winnerLine[0]].length - 1].player : null;
 }
 // #endregion
 // #region 公開モジュール

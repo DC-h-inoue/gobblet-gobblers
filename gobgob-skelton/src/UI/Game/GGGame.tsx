@@ -40,15 +40,20 @@ const GGGame = () => {
 
   // 勝利プレイヤーの更新
   useEffect(() => {
-    setWinner(checkWinner(boardPieces));
+    const gameResult = checkWinner(
+      boardPieces.map((squarePiece) => squarePiece[squarePiece.length - 1])
+    );
+    if (gameResult) {
+      setWinner(gameResult);
+    }
   }, [boardPieces]);
 
   // 勝利プレイヤーの表示
   useEffect(() => {
     if (winner) {
       alert(`ゲーム終了です！${winner}の勝ちです`);
+      setWinner(null);
     }
-    setWinner(null);
   }, [winner]);
 
   // #endregion

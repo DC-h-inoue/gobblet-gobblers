@@ -19,8 +19,9 @@
   }
 
   .playing-player-info {
-    font-size: 30px;
+    font-size: $font-size-large;
     font-weight: bold;
+    // プレイヤー情報と盤面との間にmarginを与えたいので、margin-rightを使用
     margin-right: 50px;
   }
 }

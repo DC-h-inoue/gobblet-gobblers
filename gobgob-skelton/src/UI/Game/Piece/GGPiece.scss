@@ -25,11 +25,11 @@
       background-color: $gg-secondary-color;
     }
 
-    &.is-able-to-drag {
+    &.is-draggable {
       cursor: grab;
     }
 
-    &.is-not-able-to-drag {
+    &.is-not-draggable {
       &.on-piece-stand {
         opacity: 0.6;
       }

@@ -61,7 +61,7 @@ const GGPiece: FC<Props> = ({ className, piece, boardSquareIndex }) => {
           'gg_piece piece',
           piece.size,
           piece.player === PLAYER.P1 ? 'p1' : 'p2',
-          piece.player === playingPlayer ? 'is-valid-dragging' : 'is-invalid-dragging',
+          piece.player === playingPlayer ? 'is-draggable' : 'is-not-draggable',
           boardSquareIndex !== -1 ? 'on-board' : 'on-piece-stand',
           className
         ),

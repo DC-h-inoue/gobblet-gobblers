@@ -3,6 +3,7 @@
 .gg_piece {
   &.piece {
     font-size: $font-size-large * 2;
+    cursor: not-allowed;
 
     &.small {
       width: $space * 10;
@@ -25,15 +26,13 @@
       background-color: $gg-secondary-color;
     }
 
-    &.is-draggable {
-      cursor: grab;
+    &.is-standing-piece-stand {
+      opacity: 0.6;
     }
 
-    &.is-not-draggable {
-      &.on-piece-stand {
-        opacity: 0.6;
-      }
-      cursor: not-allowed;
+    &.is-draggable {
+      opacity: 1;
+      cursor: grab;
     }
 
     &.is-dragging {

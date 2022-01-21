@@ -61,7 +61,7 @@ const GGGame = () => {
   return (
     <div className="gg_game">
       <div className="playing-player-info">{playingPlayer}のターン</div>
-      <GGBoard />
+      <GGBoard className="board" />
       <div className="piece-stand-container">
         <GGPieceStand className="piece-stand" player={PLAYER.P1} />
         <GGPieceStand className="piece-stand" player={PLAYER.P2} />

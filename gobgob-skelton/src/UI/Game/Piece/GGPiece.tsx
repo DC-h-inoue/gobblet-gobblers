@@ -3,12 +3,12 @@ import { FC } from 'react';
 import { Avatar } from '@mui/material';
 import classNames from 'classnames';
 import { useDrag } from 'react-dnd';
+import { useSelector } from 'react-redux';
 
 import { Piece } from 'utils/types';
 import { GG_PIECE, PLAYER } from 'utils/constants';
 
 import './GGPiece.scss';
-import { useSelector } from 'react-redux';
 // #endregion
 // #region 型定義
 type Props = {
@@ -37,11 +37,14 @@ const GGPiece: FC<Props> = ({ className, piece, boardSquareIndex }) => {
   // #endregion
   // #region 内部変数
   const { playingPlayer } = useSelector((state) => state.game);
-  const [, pieceDragRef] = useDrag(
+  const [{ isDragging }, pieceDragRef] = useDrag(
     () => ({
       type: GG_PIECE,
       item: { piece: piece, index: boardSquareIndex },
       canDrag: () => playingPlayer === piece.player,
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
     }),
     [piece, playingPlayer]
   );
@@ -61,8 +64,11 @@ const GGPiece: FC<Props> = ({ className, piece, boardSquareIndex }) => {
           'gg_piece piece',
           piece.size,
           piece.player === PLAYER.P1 ? 'p1' : 'p2',
-          piece.player === playingPlayer ? 'is-draggable' : 'is-not-draggable',
-          boardSquareIndex !== -1 ? 'on-board' : 'on-piece-stand',
+          {
+            'is-dragging': isDragging,
+            'is-draggable': playingPlayer === piece.player,
+            'is-standing-piece-stand': boardSquareIndex === -1,
+          },
           className
         ),
       }}

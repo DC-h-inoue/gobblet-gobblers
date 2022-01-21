@@ -18,10 +18,12 @@
     }
   }
 
+  .board {
+    margin-left: $space * 6.25;
+  }
+
   .playing-player-info {
     font-size: $font-size-large;
     font-weight: bold;
-    // プレイヤー情報と盤面との間にmarginを与えたいので、margin-rightを使用
-    margin-right: 50px;
   }
 }

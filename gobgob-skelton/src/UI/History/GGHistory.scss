@@ -1,0 +1,24 @@
+@import '~styles/variables';
+
+.gg_history {
+  text-align: center;
+  padding: $space * 3;
+  min-width: $space * 43;
+
+  border: 1px solid $border-color-base;
+
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+
+  .history_board {
+    margin-top: $space * 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space * 2;
+
+    .restart_button {
+      margin: 0 auto; // 中央揃えを行うために左右のmarginを設定
+      grid-column: 1/3;
+    }
+  }
+}

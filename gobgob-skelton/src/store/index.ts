@@ -1,6 +1,7 @@
 // #region import宣言
-import { combineReducers, createStore, compose, applyMiddleware } from "redux";
-import { reducer as gameReducer } from "./game/reducer";
+import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
+import { reducer as gameReducer } from './game/reducer';
+import { reducer as historyReducer } from './history/reducer';
 // #endregion
 // #region 型定義
 interface ExtendedWindow extends Window {
@@ -9,12 +10,11 @@ interface ExtendedWindow extends Window {
 declare var window: ExtendedWindow;
 
 const composeReduxDevToolsEnhancers =
-  (typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose;
+  (typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
 export type RootState = ReturnType<typeof store.getState>;
 
-declare module "react-redux" {
+declare module 'react-redux' {
   interface DefaultRootState extends RootState {}
 }
 // #endregion
@@ -26,12 +26,9 @@ declare module "react-redux" {
 // #endregion
 // #region 公開モジュール
 
-const rootReducer = combineReducers({ game: gameReducer });
+const rootReducer = combineReducers({ game: gameReducer, history: historyReducer });
 
-const store = createStore(
-  rootReducer,
-  composeReduxDevToolsEnhancers(applyMiddleware())
-);
+const store = createStore(rootReducer, composeReduxDevToolsEnhancers(applyMiddleware()));
 
 export default store;
 // #endregion

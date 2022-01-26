@@ -1,7 +1,12 @@
 // #region import宣言
 import { PIECE_SIZE, PLAYER } from 'utils/constants';
 import { Piece, Player } from 'utils/types';
-import { ActionType, MOVE_PIECE_FROM_STAND, MOVE_PIECE_ON_BOARD } from './actions';
+import {
+  ActionType,
+  GO_BACK_TO_PREV_BOARD,
+  MOVE_PIECE_FROM_STAND,
+  MOVE_PIECE_ON_BOARD,
+} from './actions';
 // #endregion
 
 // #region 型定義
@@ -41,7 +46,7 @@ const INITIAL_STATE: GameState = {
 
 // #endregion
 // #region 公開モジュール
-export function reducer(state = INITIAL_STATE, action: ActionType<any>) {
+export function reducer(state = INITIAL_STATE, action: ActionType<any>): GameState {
   switch (action.type) {
     // #region MOVE_PIECE_FROM_STAND
     case MOVE_PIECE_FROM_STAND: {
@@ -99,6 +104,18 @@ export function reducer(state = INITIAL_STATE, action: ActionType<any>) {
       const newPlayingPlayer = state.playingPlayer === PLAYER.P1 ? PLAYER.P2 : PLAYER.P1;
 
       return { ...state, boardPieces: newBoardPieces, playingPlayer: newPlayingPlayer };
+    }
+    // #endregion
+
+    // #region GO_BACK_TO_PREV_BOARD
+    case GO_BACK_TO_PREV_BOARD: {
+      return {
+        ...state,
+        boardPieces: action.payload.boardPieces,
+        player1Pieces: action.payload.player1Pieces,
+        player2Pieces: action.payload.player2Pieces,
+        playingPlayer: action.payload.playingPlayer,
+      };
     }
     // #endregion
 

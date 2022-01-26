@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import GGPieceStand from 'UI/Game/PieceStand/GGPieceStand';
 import GGBoard from 'UI/Game/Board/GGBoard';
+import GGHistory from 'UI/History/GGHistory';
 import { PLAYER } from 'utils/constants';
 import { Player } from 'utils/types';
 import { checkWinner } from 'utils/helper';
@@ -66,6 +67,7 @@ const GGGame = () => {
         <GGPieceStand className="piece-stand" player={PLAYER.P1} />
         <GGPieceStand className="piece-stand" player={PLAYER.P2} />
       </div>
+      <GGHistory className="history" />
     </div>
   );
   // #endregion

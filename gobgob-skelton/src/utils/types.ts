@@ -11,6 +11,13 @@ export type Piece = {
   player: Player;
 };
 
+export type PrevGameState = {
+  boardPieces: Piece[][];
+  player1Pieces: Piece[];
+  player2Pieces: Piece[];
+  playingPlayer: Player;
+};
+
 // #endregion
 
 // #region 定数

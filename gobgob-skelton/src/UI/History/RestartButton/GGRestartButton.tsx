@@ -40,8 +40,9 @@ const GGRestartButton: FC<Props> = ({ className, initialGameState }) => {
   // #region イベントハンドラ
   /**
    * ボタンクリック時のイベントハンドラ
+   * @param {React.MouseEvent<HTMLButtonElement>} _event ボタンクリック時のイベント
    */
-  const handleRestartButtonClick = () => {
+  const handleRestartButtonClick = (_event: React.MouseEvent<HTMLButtonElement>) => {
     const isGameReset = window.confirm('ゲームを中断して、新しくゲームを開始しますか？');
     if (isGameReset) {
       dispatch(deleteHistory());

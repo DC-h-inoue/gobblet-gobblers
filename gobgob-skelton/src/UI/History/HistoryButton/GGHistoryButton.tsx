@@ -41,8 +41,9 @@ const GGHistoryButton: FC<Props> = ({ className, prevGameState, prevStepNumber }
   // #region イベントハンドラ
   /**
    * ボタンクリック時のイベントハンドラ
+   * @param {React.MouseEvent<HTMLButtonElement>} _event ボタンクリック時のイベント
    */
-  const handleHistoryButtonClick = () => {
+  const handleHistoryButtonClick = (_event: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(updateStepNumberAction(prevStepNumber));
     dispatch(goBackToPrevBoardAction(prevGameState));
   };

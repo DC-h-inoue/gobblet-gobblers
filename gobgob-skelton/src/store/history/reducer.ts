@@ -108,7 +108,7 @@ export function reducer(state = INITIAL_STATE, action: ActionType<any>): History
           : nowGameState.player2Pieces;
       const newPlayerPieces = [...playerPieces];
       newPlayerPieces.splice(
-        playerPieces.findIndex((element) => element === action.payload.piece),
+        playerPieces.findIndex((element) => element.size === action.payload.piece.size),
         1
       );
 

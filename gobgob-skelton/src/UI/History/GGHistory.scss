@@ -1,24 +1,32 @@
 @import '~styles/variables';
 
 .gg_history {
-  text-align: center;
+  height: $square-size * 3;
   padding: $space * 3;
   min-width: $space * 43;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 
   border: 1px solid $border-color-base;
 
   font-size: $font-size-large;
   font-weight: $font-weight-bold;
 
-  .history_board {
-    margin-top: $space * 2;
+  .restart-button {
+    margin: $space * 2 auto 0; // 中央揃えを行うために左右のmarginを設定
+    grid-column: 1/3;
+  }
+
+  .history-board {
+    height: $space * 57.5;
+    width: $space * 40.5;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: $space * 4.5;
+    margin-top: $space * 2;
     gap: $space * 2;
 
-    .restart_button {
-      margin: 0 auto; // 中央揃えを行うために左右のmarginを設定
-      grid-column: 1/3;
-    }
+    overflow: scroll;
   }
 }

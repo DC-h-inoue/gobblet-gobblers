@@ -39,26 +39,20 @@ const GGHistory: FC<Props> = ({ className }) => {
   // #region 副作用処理
   // #endregion
   // #region レンダリング処理
+
+  // ゲームの進行履歴の先頭以外の要素を履歴ボタンとして展開する
   return (
     <div className={classNames('gg_history', className)}>
       Play Histories
-      <div className="history_board">
-        {gameHistory.map((prevGameState, index) =>
-          index === 0 ? (
-            <GGRestartButton
-              className="restart_button"
-              initialGameState={prevGameState}
-              key={index}
-            />
-          ) : (
-            <GGHistoryButton
-              className="history_button"
-              prevGameState={prevGameState}
-              prevStepNumber={index}
-              key={index}
-            />
-          )
-        )}
+      <GGRestartButton className="restart-button" initialGameState={gameHistory[0]} key={0} />
+      <div className="history-board">
+        {gameHistory.slice(1).map((prevGameState, index) => (
+          <GGHistoryButton
+            prevGameState={prevGameState}
+            prevStepNumber={index + 1}
+            key={index + 1}
+          />
+        ))}
       </div>
     </div>
   );

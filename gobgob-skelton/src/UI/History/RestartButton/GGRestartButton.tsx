@@ -55,7 +55,7 @@ const GGRestartButton: FC<Props> = ({ className, initialGameState }) => {
   // #region レンダリング処理
   return (
     <Button
-      className={classNames('restart_button gg_restart_button', className)}
+      className={classNames('gg_restart_button restart-button', className)}
       onClick={handleRestartButtonClick}
     >
       Restart

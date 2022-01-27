@@ -1,19 +1,19 @@
 @import '~styles/variables';
 
-.history_button {
-  &.gg_history_button {
+.gg_history_button {
+  &.history-button {
     width: $space * 17.5;
 
-    border-radius: $gg-button-border-radius;
+    border-radius: $button-border-radius;
 
-    color: $gg-button-font-color;
+    color: $button-font-color;
   }
 
-  &.player1_button {
+  &.player1-button {
     background-color: $gg-primary-color;
   }
 
-  &.player2_button {
+  &.player2-button {
     background-color: $gg-secondary-color;
   }
 }

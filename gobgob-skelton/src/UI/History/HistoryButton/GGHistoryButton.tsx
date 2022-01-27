@@ -54,9 +54,9 @@ const GGHistoryButton: FC<Props> = ({ className, prevGameState, prevStepNumber }
   return (
     <Button
       className={classNames(
-        'history_button gg_history_button',
+        'gg_history_button history-button',
         className,
-        prevStepNumber % 2 === 1 ? 'player1_button' : 'player2_button'
+        prevStepNumber % 2 === 1 ? 'player1-button' : 'player2-button'
       )}
       onClick={handleHistoryButtonClick}
     >

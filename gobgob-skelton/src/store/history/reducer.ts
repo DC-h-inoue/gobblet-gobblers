@@ -119,31 +119,25 @@ export function reducer(state = INITIAL_STATE, action: ActionType<any>): History
       const newStepNumber = state.stepNumber + 1;
 
       // 動かされた駒の情報に応じた駒置き場の情報の更新
-      return action.payload.piece.player === PLAYER.P1
-        ? {
-            gameHistory: [
-              ...state.gameHistory.slice(0, state.stepNumber + 1),
-              {
-                ...nowGameState,
-                boardPieces: newBoardPieces,
-                player1Pieces: newPlayerPieces,
-                playingPlayer: newPlayingPlayer,
-              },
-            ],
-            stepNumber: newStepNumber,
-          }
-        : {
-            gameHistory: [
-              ...state.gameHistory.slice(0, state.stepNumber + 1),
-              {
-                ...nowGameState,
-                boardPieces: newBoardPieces,
-                player2Pieces: newPlayerPieces,
-                playingPlayer: newPlayingPlayer,
-              },
-            ],
-            stepNumber: newStepNumber,
-          };
+      return {
+        gameHistory: [
+          ...state.gameHistory.slice(0, state.stepNumber + 1),
+          {
+            ...nowGameState,
+            boardPieces: newBoardPieces,
+            player1Pieces:
+              action.payload.piece.player === PLAYER.P1
+                ? newPlayerPieces
+                : nowGameState.player1Pieces,
+            player2Pieces:
+              action.payload.piece.player === PLAYER.P2
+                ? newPlayerPieces
+                : nowGameState.player2Pieces,
+            playingPlayer: newPlayingPlayer,
+          },
+        ],
+        stepNumber: newStepNumber,
+      };
     }
     // #endregion
 

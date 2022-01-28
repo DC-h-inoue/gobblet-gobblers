@@ -7,13 +7,13 @@
     border-radius: $button-border-radius;
 
     color: $button-font-color;
-  }
 
-  &.player1-button {
-    background-color: $gg-primary-color;
-  }
+    &.player1-button {
+      background-color: $gg-primary-color;
+    }
 
-  &.player2-button {
-    background-color: $gg-secondary-color;
+    &.player2-button {
+      background-color: $gg-secondary-color;
+    }
   }
 }

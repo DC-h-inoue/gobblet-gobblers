@@ -3,11 +3,15 @@ import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 
-import { movePieceFromStandAction, movePieceStandOnBoardAction } from 'store/game/actions';
+import GGPiece from 'UI/Game/Piece/GGPiece';
 import { Piece } from 'utils/types';
 import { GG_PIECE } from 'utils/constants';
 import { validatePieceMoving } from 'utils/helper';
-import GGPiece from 'UI/Game/Piece/GGPiece';
+import { movePieceFromStandAction, movePieceStandOnBoardAction } from 'store/game/actions';
+import {
+  recordHistoryFromPieceStandAction,
+  recordHistoryOnBoardAction,
+} from 'store/history/actions';
 
 import './GGSquare.scss';
 // #endregion
@@ -43,11 +47,13 @@ const GGSquare: FC<Props> = ({ pieceHistory, index }) => {
       canDrop: (item: { piece: Piece; index: number }) =>
         validatePieceMoving(item.piece, pieceHistory[pieceHistory.length - 1]),
       drop: (item: { piece: Piece; index: number }) => {
-        dispatch(
-          item.index === -1
-            ? movePieceFromStandAction(item.piece, index)
-            : movePieceStandOnBoardAction(item.piece, index, item.index)
-        );
+        if (item.index === -1) {
+          dispatch(movePieceFromStandAction(item.piece, index));
+          dispatch(recordHistoryFromPieceStandAction(item.piece, index));
+        } else {
+          dispatch(movePieceStandOnBoardAction(item.piece, index, item.index));
+          dispatch(recordHistoryOnBoardAction(item.piece, index, item.index));
+        }
       },
     }),
     [pieceHistory]

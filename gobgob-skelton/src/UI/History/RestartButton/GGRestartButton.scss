@@ -1,0 +1,13 @@
+@import '~styles/variables';
+
+.gg_restart_button {
+  &.restart-button {
+    width: $space * 17.5;
+
+    border-radius: $button-border-radius;
+
+    background-color: $restart-button-bg-color;
+
+    color: $button-font-color;
+  }
+}

@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { reducer } from 'store/game/reducer';
 import { PIECE_SIZE, PLAYER } from 'utils/constants';
 import { Piece } from 'utils/types';
@@ -160,93 +162,78 @@ describe('movePieceStandOnBoard', () => {
   // #endregion
 
   // #region 正常系テスト
-  test('テストNo.1', () => {
-    // 入力
-    const inputState01 = {
-      ...INITIAL_STATE,
-      boardPieces: boardPieces01,
-      playingPlayer: PLAYER.P1,
-    };
-    const inputAction01 = movePieceStandOnBoardAction(movedPieceP1L, moveToIndex, moveFromIndex);
-    // 期待値
-    const expectedState01 = {
-      ...INITIAL_STATE,
-      boardPieces: updatedBoardPieces01,
-      playingPlayer: PLAYER.P2,
-    };
+  test.each([
+    [
+      'No.1 : 移動先に駒がない, 移動元のマスの配置履歴の個数が1個, プレイヤー1の手番',
+      boardPieces01,
+      PLAYER.P1,
+      movedPieceP1L,
+      updatedBoardPieces01,
+      PLAYER.P2,
+    ],
+    [
+      'No.2 : 移動先に駒がない, 移動元のマスの配置履歴の個数が3個, プレイヤー1の手番',
+      boardPieces02,
+      PLAYER.P1,
+      movedPieceP1L,
+      updatedBoardPieces02,
+      PLAYER.P2,
+    ],
+    [
+      'No.3 : 移動先に駒がある, 移動元のマスの配置履歴の個数が1個, プレイヤー2の手番',
+      boardPieces03,
+      PLAYER.P2,
+      movedPieceP2L,
+      updatedBoardPieces03,
+      PLAYER.P1,
+    ],
+    [
+      'No.4 : 移動先に駒がある, 移動元のマスの配置履歴の個数が3個, プレイヤー2の手番',
+      boardPieces04,
+      PLAYER.P2,
+      movedPieceP2L,
+      updatedBoardPieces04,
+      PLAYER.P1,
+    ],
+  ])(
+    '%s',
+    /**
+     * @param {string} _testCase テストケース名
+     * @param {Piece[][]} inputBoardPieces 入力データ：state更新前の盤上の駒の情報
+     * @param {Player} inputPlayingPlayer 入力データ：state更新前の現在の手番
+     * @param {Piece} inputPiece 入力データ：移動させる駒の情報
+     * @param {Piece[][]} expectedBoardPieces 期待値：state更新後の盤上の駒の情報
+     * @param {Player} expectedPlayingPlayer 期待値：state更新後の現在の手番
+     */
+    (
+      _testCase,
+      inputBoardPieces,
+      inputPlayingPlayer,
+      inputPiece,
+      expectedBoardPieces,
+      expectedPlayingPlayer
+    ) => {
+      // 入力
+      const inputState = {
+        ...INITIAL_STATE,
+        boardPieces: inputBoardPieces,
+        playingPlayer: inputPlayingPlayer,
+      };
 
-    // テスト対象関数の実行
-    const testMethodOutput01 = reducer(inputState01, inputAction01);
+      // テスト対象関数の実行
+      const action = movePieceStandOnBoardAction(
+        _.cloneDeep(inputPiece),
+        moveToIndex,
+        moveFromIndex
+      );
 
-    // テスト結果の確認
-    expect(testMethodOutput01).toStrictEqual(expectedState01);
-  });
+      const result = reducer(_.cloneDeep(inputState), action);
 
-  test('テストNo.2', () => {
-    // 入力
-    const inputState02 = {
-      ...INITIAL_STATE,
-      boardPieces: boardPieces02,
-      playingPlayer: PLAYER.P1,
-    };
-    const inputAction02 = movePieceStandOnBoardAction(movedPieceP1L, moveToIndex, moveFromIndex);
-    // 期待値
-    const expectedState02 = {
-      ...INITIAL_STATE,
-      boardPieces: updatedBoardPieces02,
-      playingPlayer: PLAYER.P2,
-    };
-
-    // テスト対象関数の実行
-    const testMethodOutput02 = reducer(inputState02, inputAction02);
-
-    // テスト結果の確認
-    expect(testMethodOutput02).toStrictEqual(expectedState02);
-  });
-
-  test('テストNo.3', () => {
-    // 入力
-    const inputState03 = {
-      ...INITIAL_STATE,
-      boardPieces: boardPieces03,
-      playingPlayer: PLAYER.P2,
-    };
-    const inputAction03 = movePieceStandOnBoardAction(movedPieceP2L, moveToIndex, moveFromIndex);
-    // 期待値
-    const expectedState03 = {
-      ...INITIAL_STATE,
-      boardPieces: updatedBoardPieces03,
-      playingPlayer: PLAYER.P1,
-    };
-
-    // テスト対象関数の実行
-    const testMethodOutput03 = reducer(inputState03, inputAction03);
-
-    // テスト結果の確認
-    expect(testMethodOutput03).toStrictEqual(expectedState03);
-  });
-
-  test('テストNo.4', () => {
-    // 入力
-    const inputState04 = {
-      ...INITIAL_STATE,
-      boardPieces: boardPieces04,
-      playingPlayer: PLAYER.P2,
-    };
-    const inputAction04 = movePieceStandOnBoardAction(movedPieceP2L, moveToIndex, moveFromIndex);
-    // 期待値
-    const expectedState04 = {
-      ...INITIAL_STATE,
-      boardPieces: updatedBoardPieces04,
-      playingPlayer: PLAYER.P1,
-    };
-
-    // テスト対象関数の実行
-    const testMethodOutput04 = reducer(inputState04, inputAction04);
-
-    // テスト結果の確認
-    expect(testMethodOutput04).toStrictEqual(expectedState04);
-  });
+      // テスト結果の確認
+      expect(result.boardPieces).toStrictEqual(expectedBoardPieces);
+      expect(result.playingPlayer).toStrictEqual(expectedPlayingPlayer);
+    }
+  );
   // #endregion
 
   // #region 異常系テスト

@@ -298,7 +298,7 @@ describe('movePieceFromStand', () => {
      * @param {Piece[]} inputPlayer1Pieces 入力データ：state更新前のプレイヤー1の駒置き場の駒
      * @param {Piece[]} inputPlayer2Pieces 入力データ：state更新前のプレイヤー2の駒置き場の駒
      * @param {Player} inputPlayingPlayer 入力データ：state更新前の現在の手番
-     * @param {Piece} inputPiece 入力データ：移動させる駒の情報
+     * @param {Piece} inputMovedPiece 入力データ：移動させる駒の情報
      * @param {Piece[][]} expectedBoardPieces 期待値：state更新後の盤上の駒の情報
      * @param {Piece[]} expectedPlayer1Pieces 期待値：state更新後のプレイヤー1の駒置き場の駒
      * @param {Piece[]} expectedPlayer2Pieces 期待値：state更新後のプレイヤー2の駒置き場の駒
@@ -310,7 +310,7 @@ describe('movePieceFromStand', () => {
       inputPlayer1Pieces,
       inputPlayer2Pieces,
       inputPlayingPlayer,
-      inputPiece,
+      inputMovedPiece,
       expectedBoardPieces,
       expectedPlayer1Pieces,
       expectedPlayer2Pieces,
@@ -325,7 +325,7 @@ describe('movePieceFromStand', () => {
       };
 
       // テスト対象関数の実行
-      const action = movePieceFromStandAction(_.cloneDeep(inputPiece), moveToIndex);
+      const action = movePieceFromStandAction(_.cloneDeep(inputMovedPiece), moveToIndex);
 
       const result = reducer(_.cloneDeep(inputState), action);
 

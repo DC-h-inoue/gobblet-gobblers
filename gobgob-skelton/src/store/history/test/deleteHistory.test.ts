@@ -8,7 +8,7 @@ import { deleteHistory } from '../actions';
 describe('deleteHistory', () => {
   // #region テストデータ
   // #region 入力
-  const gameState01: PrevGameState = {
+  const initialGameState: PrevGameState = {
     boardPieces: Array(9).fill([]),
     player1Pieces: [
       { player: PLAYER.P1, size: PIECE_SIZE.L },
@@ -29,7 +29,7 @@ describe('deleteHistory', () => {
     playingPlayer: PLAYER.P1,
   };
 
-  const gameState02: PrevGameState = {
+  const gameState01: PrevGameState = {
     boardPieces: [[{ player: PLAYER.P1, size: PIECE_SIZE.S }], [], [], [], [], [], [], [], []],
     player1Pieces: [
       { player: PLAYER.P1, size: PIECE_SIZE.L },
@@ -49,7 +49,7 @@ describe('deleteHistory', () => {
     playingPlayer: PLAYER.P2,
   };
 
-  const gameState03: PrevGameState = {
+  const gameState02: PrevGameState = {
     boardPieces: [
       [{ player: PLAYER.P1, size: PIECE_SIZE.S }],
       [{ player: PLAYER.P2, size: PIECE_SIZE.S }],
@@ -78,8 +78,8 @@ describe('deleteHistory', () => {
     playingPlayer: PLAYER.P1,
   };
 
-  const gameHistory01: PrevGameState[] = [gameState01];
-  const gameHistory02: PrevGameState[] = [gameState01, gameState02, gameState03];
+  const gameHistory01: PrevGameState[] = [initialGameState];
+  const gameHistory02: PrevGameState[] = [initialGameState, gameState01, gameState02];
 
   const stepNumber01 = 0;
   const stepNumber02 = 2;

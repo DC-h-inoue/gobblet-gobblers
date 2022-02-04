@@ -192,18 +192,16 @@ describe('deleteHistory', () => {
   };
 
   const gameHistory01: PrevGameState[] = [initialGameState];
-  const gameHistory02: PrevGameState[] = [initialGameState, gameState01];
-  const gameHistory03: PrevGameState[] = [initialGameState, gameState01, gameState02];
-  const gameHistory04: PrevGameState[] = [initialGameState, gameState01, gameState02, gameState03];
-
-  const gameHistory05: PrevGameState[] = [
+  const gameHistory02: PrevGameState[] = [initialGameState, gameState01, gameState02];
+  const gameHistory03: PrevGameState[] = [
     initialGameState,
     gameState01,
     gameState02,
     gameState03,
     gameState04,
   ];
-
+  const gameHistory04: PrevGameState[] = [initialGameState, gameState01];
+  const gameHistory05: PrevGameState[] = [initialGameState, gameState01, gameState02, gameState03];
   const gameHistory06: PrevGameState[] = [
     initialGameState,
     gameState01,
@@ -214,10 +212,10 @@ describe('deleteHistory', () => {
   ];
 
   const stepNumber01 = 0;
-  const stepNumber02 = 1;
-  const stepNumber03 = 2;
-  const stepNumber04 = 3;
-  const stepNumber05 = 4;
+  const stepNumber02 = 2;
+  const stepNumber03 = 4;
+  const stepNumber04 = 1;
+  const stepNumber05 = 3;
   const stepNumber06 = 5;
 
   const movedPieceP1S: Piece = { player: PLAYER.P1, size: PIECE_SIZE.S };
@@ -228,10 +226,10 @@ describe('deleteHistory', () => {
   const movedPieceP2L: Piece = { player: PLAYER.P2, size: PIECE_SIZE.L };
 
   const moveToIndex01 = 0;
-  const moveToIndex02 = 1;
-  const moveToIndex03 = 2;
-  const moveToIndex04 = 3;
-  const moveToIndex05 = 4;
+  const moveToIndex02 = 2;
+  const moveToIndex03 = 4;
+  const moveToIndex04 = 1;
+  const moveToIndex05 = 3;
   // #endregion
 
   // #region 期待値
@@ -250,53 +248,53 @@ describe('deleteHistory', () => {
       stepNumber01,
       movedPieceP1S,
       moveToIndex01,
-      gameHistory02,
-      stepNumber02,
-    ],
-    [
-      'No.2 : P1Mを駒置き場から移動させる, 移動先に駒がない',
-      gameHistory03,
-      stepNumber03,
-      movedPieceP1M,
-      moveToIndex03,
       gameHistory04,
       stepNumber04,
     ],
     [
-      'No.3 : P1Lを駒置き場から移動させる, 移動先に駒がない',
+      'No.2 : P1Mを駒置き場から移動させる, 移動先に駒がない',
+      gameHistory02,
+      stepNumber02,
+      movedPieceP1M,
+      moveToIndex02,
       gameHistory05,
       stepNumber05,
+    ],
+    [
+      'No.3 : P1Lを駒置き場から移動させる, 移動先に駒がない',
+      gameHistory03,
+      stepNumber03,
       movedPieceP1L,
-      moveToIndex05,
+      moveToIndex03,
       gameHistory06,
       stepNumber06,
     ],
     [
       'No.4 : P2Sを駒置き場から移動させる, 移動先に駒がない',
+      gameHistory04,
+      stepNumber04,
+      movedPieceP2S,
+      moveToIndex04,
       gameHistory02,
       stepNumber02,
-      movedPieceP2S,
-      moveToIndex02,
+    ],
+    [
+      'No.5 : P2Mを駒置き場から移動させる, 移動先に駒がない',
+      gameHistory05,
+      stepNumber05,
+      movedPieceP2M,
+      moveToIndex05,
       gameHistory03,
       stepNumber03,
     ],
     [
-      'No.5 : P2Mを駒置き場から移動させる, 移動先に駒がない',
-      gameHistory04,
-      stepNumber04,
-      movedPieceP2M,
-      moveToIndex04,
-      gameHistory05,
-      stepNumber05,
-    ],
-    [
       'No.6 : P2Lを駒置き場から移動させる, 移動先に駒がある, 表示中の盤面の手順情報が最新でない',
       gameHistory06,
-      stepNumber02,
+      stepNumber04,
       movedPieceP2L,
       moveToIndex01,
       gameHistory07,
-      stepNumber03,
+      stepNumber02,
     ],
   ])(
     '%s',

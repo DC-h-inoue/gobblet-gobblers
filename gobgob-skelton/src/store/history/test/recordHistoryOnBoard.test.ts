@@ -556,7 +556,6 @@ describe('deleteHistory', () => {
       gameHistory01,
       stepNumber01,
       movedPieceP1S,
-      moveToIndex,
       moveFromIndex01,
       updatedGameHistory01,
       updatedStepNumber01,
@@ -566,7 +565,6 @@ describe('deleteHistory', () => {
       gameHistory02,
       stepNumber02,
       movedPieceP1L,
-      moveToIndex,
       moveFromIndex01,
       updatedGameHistory02,
       updatedStepNumber02,
@@ -576,7 +574,6 @@ describe('deleteHistory', () => {
       gameHistory03,
       stepNumber03,
       movedPieceP2M,
-      moveToIndex,
       moveFromIndex01,
       updatedGameHistory03,
       updatedStepNumber03,
@@ -586,7 +583,6 @@ describe('deleteHistory', () => {
       gameHistory04,
       stepNumber04,
       movedPieceP1L,
-      moveToIndex,
       moveFromIndex02,
       updatedGameHistory04,
       updatedStepNumber04,
@@ -608,7 +604,6 @@ describe('deleteHistory', () => {
       inputGameHistory,
       inputStepNumber,
       inputMovedPiece,
-      inputMoveToIndex,
       inputMoveFromIndex,
       expectedGameHistory,
       expectedStepNumber
@@ -622,7 +617,7 @@ describe('deleteHistory', () => {
       // テスト対象関数の実行
       const action = recordHistoryOnBoardAction(
         _.cloneDeep(inputMovedPiece),
-        inputMoveToIndex,
+        moveToIndex,
         inputMoveFromIndex
       );
 

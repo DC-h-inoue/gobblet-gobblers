@@ -52,7 +52,13 @@
     ]
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.11",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-to-json": "^3.6.2",
     "jest": "^27.4.7",
-    "sass": "^1.45.1"
+    "sass": "^1.45.1",
+    "ts-jest": "^27.1.3"
   }
 }

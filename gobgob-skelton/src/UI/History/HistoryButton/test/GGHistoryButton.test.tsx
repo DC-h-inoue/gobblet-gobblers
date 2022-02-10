@@ -19,6 +19,7 @@ const goBackToPrevBoardActionSpy: jest.SpyInstance = jest
       payload: gameState,
     })
   );
+
 const updateStepNumberActionSpy: jest.SpyInstance = jest
   .spyOn(HistoryActions, 'updateStepNumberAction')
   .mockImplementation(
@@ -109,10 +110,29 @@ describe('GGHistoryButton', () => {
 
   // #region 正常系テスト
   test.each([
-    ['No.1：', prevGameState01, prevStepNumber01, buttonClassName01, buttonMessage01],
-    ['No.2：', prevGameState02, prevStepNumber02, buttonClassName02, buttonMessage02],
+    [
+      'No.1：・Props で渡ったクラス名がボタンのクラス名に設定されている、Props で渡った prevStepNumber が奇数の時、履歴ボタンコンポーネントのクラス名にplayer1-buttonが設定されている、Props で渡った prevStepNumber に応じて 「move to #（prevStepNumber）」 という文字列が存在する',
+      prevGameState01,
+      prevStepNumber01,
+      buttonClassName01,
+      buttonMessage01,
+    ],
+    [
+      'No.2：Props で渡った prevStepNumber が偶数の時、履歴ボタンコンポーネントのクラス名にplayer2-buttonが設定されている、Props で渡った prevStepNumber に応じて 「move to #（prevStepNumber）」 という文字列が存在する',
+      prevGameState02,
+      prevStepNumber02,
+      buttonClassName02,
+      buttonMessage02,
+    ],
   ])(
     '%s',
+    /**
+     * @param {string} _testCase テストケース名
+     * @param {PrevGameState} inputPrevGameState ボタンクリック時に表示する盤面情報
+     * @param {number} inputPrevStepNumber ボタンクリック時に表示する盤面の手順情報
+     * @param {string} expectedButtonClass ボタンに設定されるプレイヤー情報に関するクラス名
+     * @param {string} expectedButtonMessage ボタンに設定されるメッセージ
+     */
     (
       _testCase,
       inputPrevGameState,
@@ -123,10 +143,6 @@ describe('GGHistoryButton', () => {
       // 期待値
       const expectedClassName = className;
 
-      // mockの引数
-      const mockArgPrevStepNumber = inputPrevStepNumber;
-      const mockArgPrevGameState = inputPrevGameState;
-
       // テスト対象コンポーネントの生成
       const wrapper = shallow(
         <GGHistoryButton
@@ -136,9 +152,6 @@ describe('GGHistoryButton', () => {
         />
       );
 
-      // テスト対象コンポーネントのイベントハンドラ実行
-      wrapper.find('.gg_history_button').simulate('click');
-
       // 期待値の確認
       // ボタンコンポーネントのクラス名
       expect(wrapper.find('.gg_history_button').hasClass(expectedClassName)).toBe(true);
@@ -146,16 +159,34 @@ describe('GGHistoryButton', () => {
 
       // ボタンコンポーネントの表示メッセージ
       expect(wrapper.text()).toBe(expectedButtonMessage);
-
-      // 各関数の呼び出し回数
-      expect(goBackToPrevBoardActionSpy).toHaveBeenCalledTimes(goBackToPrevBoardActionCallTimes);
-      expect(updateStepNumberActionSpy).toHaveBeenCalledTimes(updateStepNumberActionCalledTimes);
-
-      // 各関数の引数確認
-      expect(goBackToPrevBoardActionSpy).toHaveBeenCalledWith(mockArgPrevGameState);
-      expect(updateStepNumberActionSpy).toHaveBeenCalledWith(mockArgPrevStepNumber);
     }
   );
+
+  test('No.3：ボタンをクリックした際に、適切な引数で updateStepNumberAction と goBackToPrevBoardAction が実行されている', () => {
+    // mockの引数
+    const mockArgPrevGameState = prevGameState01;
+    const mockArgPrevStepNumber = prevStepNumber01;
+
+    // テスト対象コンポーネントの生成
+    const wrapper = shallow(
+      <GGHistoryButton
+        className={className}
+        prevGameState={_.cloneDeep(prevGameState01)}
+        prevStepNumber={prevStepNumber01}
+      />
+    );
+
+    // テスト対象コンポーネントのイベントハンドラ実行
+    wrapper.find('.gg_history_button').simulate('click');
+
+    // 各関数の呼び出し回数
+    expect(goBackToPrevBoardActionSpy).toHaveBeenCalledTimes(goBackToPrevBoardActionCallTimes);
+    expect(updateStepNumberActionSpy).toHaveBeenCalledTimes(updateStepNumberActionCalledTimes);
+
+    // 各関数の引数確認
+    expect(goBackToPrevBoardActionSpy).toHaveBeenCalledWith(mockArgPrevGameState);
+    expect(updateStepNumberActionSpy).toHaveBeenCalledWith(mockArgPrevStepNumber);
+  });
   // #endregion
 
   // #region 異常系テスト

@@ -94,10 +94,6 @@ describe('GGHistoryButton', () => {
   // 履歴ボタンに表示されるメッセージ
   const buttonMessage01 = 'move to #1';
   const buttonMessage02 = 'move to #2';
-
-  // アクションの呼び出し回数
-  const goBackToPrevBoardActionCallTimes = 1;
-  const updateStepNumberActionCalledTimes = 1;
   // #endregion
   // #endregion
 
@@ -180,8 +176,8 @@ describe('GGHistoryButton', () => {
     wrapper.find('.gg_history_button').simulate('click');
 
     // 各関数の呼び出し回数
-    expect(goBackToPrevBoardActionSpy).toHaveBeenCalledTimes(goBackToPrevBoardActionCallTimes);
-    expect(updateStepNumberActionSpy).toHaveBeenCalledTimes(updateStepNumberActionCalledTimes);
+    expect(goBackToPrevBoardActionSpy).toHaveBeenCalledTimes(1);
+    expect(updateStepNumberActionSpy).toHaveBeenCalledTimes(1);
 
     // 各関数の引数確認
     expect(goBackToPrevBoardActionSpy).toHaveBeenCalledWith(mockArgPrevGameState);

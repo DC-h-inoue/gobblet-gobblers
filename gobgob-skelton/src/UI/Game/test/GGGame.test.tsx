@@ -121,9 +121,8 @@ describe('GGGame', () => {
     playingPlayer: PLAYER.P1,
   };
 
-  const checkWinnerRetVal01 = null;
-  const checkWinnerRetVal02 = PLAYER.P1;
-  const checkWinnerRetVal03 = PLAYER.P2;
+  const checkWinnerRetVal01 = PLAYER.P1;
+  const checkWinnerRetVal02 = PLAYER.P2;
   // #endregion
 
   // #region 期待値
@@ -133,17 +132,57 @@ describe('GGGame', () => {
   const alertMessageP1 = 'ゲーム終了です！Player1の勝ちです';
   const alertMessageP2 = 'ゲーム終了です！Player2の勝ちです';
 
-  const alertCallTimes01 = 0;
-  const alertCallTimes02 = 1;
-
-  const checkWinnerCallTimes01 = 1;
-  const checkWinnerCallTimes02 = 2;
+  const checkWinnerArg01 = [
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+  ];
+  const checkWinnerArg02 = [
+    { size: PIECE_SIZE.S, player: PLAYER.P1 },
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+  ];
+  const checkWinnerArg03 = [
+    { size: PIECE_SIZE.S, player: PLAYER.P1 },
+    { size: PIECE_SIZE.S, player: PLAYER.P1 },
+    { size: PIECE_SIZE.M, player: PLAYER.P1 },
+    { size: PIECE_SIZE.S, player: PLAYER.P2 },
+    undefined,
+    undefined,
+    { size: PIECE_SIZE.M, player: PLAYER.P2 },
+    undefined,
+    undefined,
+  ];
+  const checkWinnerArg04 = [
+    { size: PIECE_SIZE.M, player: PLAYER.P2 },
+    { size: PIECE_SIZE.M, player: PLAYER.P2 },
+    { size: PIECE_SIZE.L, player: PLAYER.P2 },
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+  ];
 
   // #endregion
   // #endregion
 
   // #region グローバル処理
   afterEach(() => {
+    store.dispatch(changeGameStateAction(_.cloneDeep(initialGameState)));
     alertSpy.mockClear();
     checkWinnerSpy.mockClear();
   });
@@ -179,46 +218,56 @@ describe('GGGame', () => {
       store.dispatch(changeGameStateAction(_.cloneDeep(inputGameState)));
 
       // 期待値の確認
-      expect(screen.getByText(expectedPlayerMessage)).toHaveClass('playing-player-info');
+      expect(screen.getByTestId('playing-player-info')).toHaveTextContent(expectedPlayerMessage);
     }
   );
 
   test('No.3：checkWinner()の返り値がnullの時、何も表示されない', () => {
     // 入力
-    const inputGameState = initialGameState;
-    const inputCheckWinnerRetVal = checkWinnerRetVal01;
-    checkWinnerSpy.mockReturnValue(inputCheckWinnerRetVal);
+    const inputGameState = gameState01;
+    // モックの戻り値
+    checkWinnerSpy.mockReturnValue(null);
 
     // 期待値
-    const expectedAlertCallTimes = alertCallTimes01;
-    const expectedCheckWinnerCallTimes = checkWinnerCallTimes01;
+    // モックの引数
+    const mockArgCheckWinnerFirst = checkWinnerArg01;
+    const mockArgCheckWinnerSecond = checkWinnerArg02;
 
-    // 対象コンポーネントのレンダリング及び処理実行
+    // 対象コンポーネントのレンダリング
     render(
       <Provider store={store}>
         <GGGame />
       </Provider>
     );
+    // 初回レンダー時の期待値確認
+    expect(alertSpy).not.toHaveBeenCalled();
+    expect(checkWinnerSpy).toHaveBeenCalledWith(mockArgCheckWinnerFirst);
+    expect(checkWinnerSpy).toHaveBeenCalledTimes(1);
 
-    store.dispatch(changeGameStateAction(_.cloneDeep(inputGameState)));
-
-    // 期待値の確認
-    expect(alertSpy).toHaveBeenCalledTimes(expectedAlertCallTimes);
-    expect(checkWinnerSpy).toHaveBeenCalledTimes(expectedCheckWinnerCallTimes);
+    // gameStateの変更
+    act(() => {
+      store.dispatch(changeGameStateAction(_.cloneDeep(inputGameState)));
+    });
+    // 再レンダー後の期待値確認
+    expect(alertSpy).not.toHaveBeenCalled();
+    expect(checkWinnerSpy).toHaveBeenCalledWith(mockArgCheckWinnerSecond);
+    expect(checkWinnerSpy).toHaveBeenCalledTimes(2);
   });
 
   test.each([
     [
       'No.4：checkWinner()の返り値がPLAYER.P1の時、「ゲーム終了です！Player1の勝ちです」というメッセージが表示されるか',
       gameState02,
-      checkWinnerRetVal02,
+      checkWinnerRetVal01,
       alertMessageP1,
+      checkWinnerArg03,
     ],
     [
       'No.5：checkWinner()の返り値がPLAYER.P2の時、「ゲーム終了です！Player2の勝ちです」というメッセージが表示されるか',
       gameState03,
-      checkWinnerRetVal03,
+      checkWinnerRetVal02,
       alertMessageP2,
+      checkWinnerArg04,
     ],
   ])(
     /**
@@ -226,34 +275,45 @@ describe('GGGame', () => {
      * @param {GameState} inputGameState 盤面の情報
      * @param {number} inputCheckWinnerRetVal checkWinnerの返り値
      * @param {string} expectedAlertMessage 勝敗決定時のメッセージ
+     * @param {Piece[]} mockArgCheckWinnerSecond 再レンダー後のcheckWinnerの引数
      */
     '%s',
-    (_testCase, inputGameState, inputCheckWinnerRetVal, expectedAlertMessage) => {
+    (
+      _testCase,
+      inputGameState,
+      mockResponseCheckWinnerRetVal,
+      expectedAlertMessage,
+      mockArgCheckWinnerSecond
+    ) => {
       // 入力
-      checkWinnerSpy.mockReturnValueOnce(null).mockReturnValueOnce(inputCheckWinnerRetVal);
+      // モックの戻り値
+      checkWinnerSpy.mockReturnValueOnce(null).mockReturnValueOnce(mockResponseCheckWinnerRetVal);
 
       // 期待値
-      const expectedAlertCallTimes = alertCallTimes02;
-      const expectedCheckWinnerCallTimes = checkWinnerCallTimes02;
-
-      // モックの引数
+      // モックへの出力
       const mockArgAlertMessage = expectedAlertMessage;
+      const mockArgCheckWinnerFirst = checkWinnerArg01;
 
-      // 対象コンポーネントのレンダリング及び処理実行
+      // 対象コンポーネントのレンダリング
       render(
         <Provider store={store}>
           <GGGame />
         </Provider>
       );
+      // 初回レンダー時の期待値確認
+      expect(alertSpy).not.toHaveBeenCalled();
+      expect(checkWinnerSpy).toHaveBeenCalledWith(mockArgCheckWinnerFirst);
+      expect(checkWinnerSpy).toHaveBeenCalledTimes(1);
 
+      // gameStateの変更
       act(() => {
         store.dispatch(changeGameStateAction(_.cloneDeep(inputGameState)));
       });
-
       // 期待値の確認
       expect(alertSpy).toHaveBeenCalledWith(mockArgAlertMessage);
-      expect(alertSpy).toHaveBeenCalledTimes(expectedAlertCallTimes);
-      expect(checkWinnerSpy).toHaveBeenCalledTimes(expectedCheckWinnerCallTimes);
+      expect(alertSpy).toHaveBeenCalledTimes(1);
+      expect(checkWinnerSpy).toHaveBeenCalledWith(mockArgCheckWinnerSecond);
+      expect(checkWinnerSpy).toHaveBeenCalledTimes(2);
     }
   );
   // #endregion

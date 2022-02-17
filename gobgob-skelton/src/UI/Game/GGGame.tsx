@@ -61,7 +61,9 @@ const GGGame = () => {
   // #region レンダリング処理
   return (
     <div className="gg_game">
-      <div className="playing-player-info">{playingPlayer}のターン</div>
+      <div className="playing-player-info" data-testid="playing-player-info">
+        {playingPlayer}のターン
+      </div>
       <GGBoard className="board" />
       <div className="piece-stand-container">
         <GGPieceStand className="piece-stand" player={PLAYER.P1} />

@@ -5,7 +5,7 @@ import * as GameActions from 'store/game/actions';
 import * as HistoryActions from 'store/history/actions';
 import { PIECE_SIZE, PLAYER } from 'utils/constants';
 import { PrevGameState } from 'utils/types';
-import GGHistoryButton from '../GGHistoryButton';
+import GGHistoryButton from './GGHistoryButton';
 
 jest.mock('react-redux', () => ({
   useDispatch: () => jest.fn(),

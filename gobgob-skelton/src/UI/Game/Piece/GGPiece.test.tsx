@@ -35,16 +35,7 @@ describe('GGPiece', () => {
   };
 
   const gameState01 = {
-    boardPieces: [
-      [{ size: PIECE_SIZE.L, player: PLAYER.P1 }],
-      [{ size: PIECE_SIZE.L, player: PLAYER.P2 }],
-      [],
-      [],
-      [],
-      [],
-      [],
-      [],
-    ],
+    boardPieces: [[{ size: PIECE_SIZE.L, player: PLAYER.P1 }], [], [], [], [], [], [], []],
     player1Pieces: [
       { size: PIECE_SIZE.L, player: PLAYER.P1 },
       { size: PIECE_SIZE.M, player: PLAYER.P1 },
@@ -54,31 +45,33 @@ describe('GGPiece', () => {
     ],
     player2Pieces: [
       { size: PIECE_SIZE.L, player: PLAYER.P2 },
+      { size: PIECE_SIZE.L, player: PLAYER.P2 },
       { size: PIECE_SIZE.M, player: PLAYER.P2 },
       { size: PIECE_SIZE.M, player: PLAYER.P2 },
       { size: PIECE_SIZE.S, player: PLAYER.P2 },
       { size: PIECE_SIZE.S, player: PLAYER.P2 },
     ],
-    playingPlayer: PLAYER.P1,
+    playingPlayer: PLAYER.P2,
   };
 
-  const className = 'gg-test';
+  const testClassName01 = 'test';
+  const testClassName02 = 'gg-test';
 
   const pieceP1S = { size: PIECE_SIZE.S, player: PLAYER.P1 };
-  const pieceP2M = { size: PIECE_SIZE.M, player: PLAYER.P2 };
-  const pieceP1L = { size: PIECE_SIZE.L, player: PLAYER.P1 };
+  const pieceP1M = { size: PIECE_SIZE.M, player: PLAYER.P1 };
+  const pieceP2L = { size: PIECE_SIZE.L, player: PLAYER.P2 };
 
-  const boardSquareIndex01 = -1;
-  const boardSquareIndex02 = 0;
+  const pieceStandBoardSquareIndex = -1;
+  const boardSquareIndex0 = 0;
   // #endregion
 
   // #region 期待値
-  const classNameP1 = 'p1';
-  const classNameP2 = 'p2';
+  const P1ClassName = 'p1';
+  const P2ClassName = 'p2';
 
-  const classNameIsDraggable = 'is-draggable';
+  const draggablePieceClassName = 'is-draggable';
 
-  const classNameIsStandingPieceStand = 'is-standing-piece-stand';
+  const pieceStandPieceClassName = 'is-standing-piece-stand';
 
   const pieceTextContentsS = PIECE_SIZE.S[0].toUpperCase();
   const pieceTextContentsM = PIECE_SIZE.M[0].toUpperCase();
@@ -91,19 +84,19 @@ describe('GGPiece', () => {
   // #endregion
 
   // #region 正常系テスト
-  test('No.1：・props で渡ったクラス名が駒のクラス名に設定されていること\n\t    ・props で渡った piece のサイズがSの時、駒のクラス名が適切に設定されていること\n\t    ・props で渡った piece のサイズがSの時、駒に Sという文字が書かれていること\n\t    ・props で渡った boardSquareIndex が駒置き場上の位置である時、クラス名が設定されていること\n\t    ・props で渡った piece のプレイヤー情報がplayer1の時、駒のクラス名が設定されていること\n\t    ・gameState の playingPlayer とprops で渡った piece のプレイヤー情報が同じ時、クラス名が設定されていること', () => {
+  test('No.1：\t・props で渡ったクラス名"test"が駒のクラス名に設定されていること\n\t\t・props で渡った piece のサイズがSの時、駒のクラス名が適切に設定されていること\n\t\t・props で渡った piece のサイズがSの時、駒に Sという文字が書かれていること\n\t\t・props で渡った boardSquareIndex が駒置き場上の位置である時、クラス名"is-standing-piece-stand"が設定されていること\n\t\t・props で渡った piece のプレイヤー情報がplayer1の時、駒のクラス名が設定されていること\n\t\t・gameState の playingPlayerがプレイヤー1である場合、クラス名"is-draggable"が設定されていること', () => {
     // 入力
-    const inputClassName = className;
+    const inputClassName = testClassName01;
     const inputPiece = pieceP1S;
-    const inputBoardSquareIndex = boardSquareIndex01;
+    const inputBoardSquareIndex = pieceStandBoardSquareIndex;
     const inputGameState = initialGameState;
 
     // 期待値
-    const expectedClassName = className;
+    const expectedClassName = testClassName01;
+    const expectedPlayerClassName = P1ClassName;
     const expectedSizeClassName = PIECE_SIZE.S;
-    const expectedPlayerClassName = classNameP1;
-    const expectedClassNameIsDraggable = classNameIsDraggable;
-    const expectedClassNameIsPieceStand = classNameIsStandingPieceStand;
+    const expectedDraggablePieceClassName = draggablePieceClassName;
+    const expectedPieceStandPieceClassName = pieceStandPieceClassName;
     const expectedTextContents = pieceTextContentsS;
 
     // 対象コンポーネントのレンダリング及び処理実行
@@ -124,29 +117,31 @@ describe('GGPiece', () => {
     });
 
     // 期待値の確認
+    // 要素が正しく描画されているか確認
+    expect(screen.getByTestId('gg_piece')).toBeInTheDocument();
     // クラス名の確認
-    expect(screen.getByTestId('gg_piece piece')).toHaveClass(expectedClassName);
-    expect(screen.getByTestId('gg_piece piece')).toHaveClass(expectedSizeClassName);
-    expect(screen.getByTestId('gg_piece piece')).toHaveClass(expectedPlayerClassName);
-    expect(screen.getByTestId('gg_piece piece')).toHaveClass(expectedClassNameIsDraggable);
-    expect(screen.getByTestId('gg_piece piece')).toHaveClass(expectedClassNameIsPieceStand);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedClassName);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedSizeClassName);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedPlayerClassName);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedDraggablePieceClassName);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedPieceStandPieceClassName);
     // 駒に表示される文字の確認
-    expect(screen.getByTestId('gg_piece piece')).toHaveTextContent(expectedTextContents);
+    expect(screen.getByTestId('gg_piece')).toHaveTextContent(expectedTextContents);
   });
 
-  test('No.2：・props で渡った piece のサイズがMの時、駒のクラス名が適切に設定されていること\n\t    ・props で渡った piece のサイズがMの時、駒に Mという文字が書かれていること\n\t    ・gameState の playingPlayer とprops で渡った piece のプレイヤー情報が違う時、クラス名が設定されていないこと', () => {
+  test('No.2：\t・props で渡ったクラス名"gg-test"が駒のクラス名に設定されていること\n\t\t・props で渡った piece のサイズがMの時、駒のクラス名が適切に設定されていること\n\t\t・props で渡った piece のサイズがMの時、駒に Mという文字が書かれていること\n\t\t・props で渡った boardSquareIndex が盤面上の位置である時、クラス名"is-standing-piece-stand"が設定されていないこと\n\t\t・props で渡った piece のプレイヤー情報がplayer1の時、駒のクラス名が適切に設定されていること\n\t\t・gameState の playingPlayerがプレイヤー2である場合、クラス名"is-draggable"が設定されていないこと', () => {
     // 入力
-    const inputClassName = className;
-    const inputPiece = pieceP2M;
-    const inputBoardSquareIndex = boardSquareIndex01;
-    const inputGameState = initialGameState;
+    const inputClassName = testClassName02;
+    const inputPiece = pieceP1M;
+    const inputBoardSquareIndex = boardSquareIndex0;
+    const inputGameState = gameState01;
 
     // 期待値
-    const expectedClassName = className;
+    const expectedClassName = testClassName02;
+    const expectedPlayerClassName = P1ClassName;
     const expectedSizeClassName = PIECE_SIZE.M;
-    const expectedPlayerClassName = classNameP2;
-    const expectedClassNameIsDraggable = classNameIsDraggable;
-    const expectedClassNameIsPieceStand = classNameIsStandingPieceStand;
+    const expectedDraggablePieceClassName = draggablePieceClassName;
+    const expectedPieceStandPieceClassName = pieceStandPieceClassName;
     const expectedTextContents = pieceTextContentsM;
 
     // 対象コンポーネントのレンダリング及び処理実行
@@ -168,28 +163,65 @@ describe('GGPiece', () => {
 
     // 期待値の確認
     // クラス名の確認
-    expect(screen.getByTestId('gg_piece piece')).toHaveClass(expectedClassName);
-    expect(screen.getByTestId('gg_piece piece')).toHaveClass(expectedSizeClassName);
-    expect(screen.getByTestId('gg_piece piece')).toHaveClass(expectedPlayerClassName);
-    expect(screen.getByTestId('gg_piece piece')).not.toHaveClass(expectedClassNameIsDraggable);
-    expect(screen.getByTestId('gg_piece piece')).toHaveClass(expectedClassNameIsPieceStand);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedClassName);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedSizeClassName);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedPlayerClassName);
+    expect(screen.getByTestId('gg_piece')).not.toHaveClass(expectedDraggablePieceClassName);
+    expect(screen.getByTestId('gg_piece')).not.toHaveClass(expectedPieceStandPieceClassName);
     // 駒に表示される文字の確認
-    expect(screen.getByTestId('gg_piece piece')).toHaveTextContent(expectedTextContents);
+    expect(screen.getByTestId('gg_piece')).toHaveTextContent(expectedTextContents);
   });
 
-  test('No.3：・props で渡った piece のサイズがLの時、駒のクラス名が適切に設定されていること\n\t    ・props で渡った piece のサイズがLの時、駒に Lという文字が書かれていること\n\t    ・props で渡った piece のプレイヤー情報がplayer2の時、駒のクラス名が設定されているか\n\t    ・props で渡った boardSquareIndex が盤面上の位置である時、クラス名が設定されていないこと', () => {
+  test('No.3：\t・props でクラス名に何も渡されなかったとき、駒のクラス名に設定されていないこと\n\t\t・props で渡った piece のサイズがLの時、駒のクラス名が適切に設定されていること\n\t\t・props で渡った piece のサイズがLの時、駒に Mという文字が書かれていること\n\t\t・props で渡った piece のプレイヤー情報がplayer2で、gameState の playingPlayerがプレイヤー1である場合、クラス名"is-draggable"が設定されていないこと', () => {
     // 入力
-    const inputClassName = className;
-    const inputPiece = pieceP1L;
-    const inputBoardSquareIndex = boardSquareIndex02;
+    const inputPiece = pieceP2L;
+    const inputBoardSquareIndex = pieceStandBoardSquareIndex;
+    const inputGameState = initialGameState;
+
+    // 期待値
+    const expectedPlayerClassName = P2ClassName;
+    const expectedSizeClassName = PIECE_SIZE.L;
+    const expectedDraggablePieceClassName = draggablePieceClassName;
+    const expectedPieceStandPieceClassName = pieceStandPieceClassName;
+    const expectedTextContents = pieceTextContentsL;
+
+    // 対象コンポーネントのレンダリング及び処理実行
+    render(
+      <Provider store={store}>
+        <DndProvider backend={HTML5Backend}>
+          <GGPiece piece={inputPiece} boardSquareIndex={inputBoardSquareIndex} />
+        </DndProvider>
+      </Provider>
+    );
+
+    act(() => {
+      store.dispatch(changeGameStateAction(_.cloneDeep(inputGameState)));
+    });
+
+    // 期待値の確認
+    // クラス名の確認
+    expect(screen.getByTestId('gg_piece')).not.toHaveClass(testClassName01);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedSizeClassName);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedPlayerClassName);
+    expect(screen.getByTestId('gg_piece')).not.toHaveClass(expectedDraggablePieceClassName);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedPieceStandPieceClassName);
+    // 駒に表示される文字の確認
+    expect(screen.getByTestId('gg_piece')).toHaveTextContent(expectedTextContents);
+  });
+
+  test('No.4：\tprops で渡った piece のプレイヤー情報がplayer2で、gameState の playingPlayerがプレイヤー2である場合、クラス名"is-draggable"が設定されていること', () => {
+    // 入力
+    const inputClassName = testClassName01;
+    const inputPiece = pieceP2L;
+    const inputBoardSquareIndex = pieceStandBoardSquareIndex;
     const inputGameState = gameState01;
 
     // 期待値
-    const expectedClassName = className;
+    const expectedClassName = testClassName01;
+    const expectedPlayerClassName = P2ClassName;
     const expectedSizeClassName = PIECE_SIZE.L;
-    const expectedPlayerClassName = classNameP1;
-    const expectedClassNameIsDraggable = classNameIsDraggable;
-    const expectedClassNameIsPieceStand = classNameIsStandingPieceStand;
+    const expectedDraggablePieceClassName = draggablePieceClassName;
+    const expectedPieceStandPieceClassName = pieceStandPieceClassName;
     const expectedTextContents = pieceTextContentsL;
 
     // 対象コンポーネントのレンダリング及び処理実行
@@ -211,13 +243,13 @@ describe('GGPiece', () => {
 
     // 期待値の確認
     // クラス名の確認
-    expect(screen.getByTestId('gg_piece piece')).toHaveClass(expectedClassName);
-    expect(screen.getByTestId('gg_piece piece')).toHaveClass(expectedSizeClassName);
-    expect(screen.getByTestId('gg_piece piece')).toHaveClass(expectedPlayerClassName);
-    expect(screen.getByTestId('gg_piece piece')).toHaveClass(expectedClassNameIsDraggable);
-    expect(screen.getByTestId('gg_piece piece')).not.toHaveClass(expectedClassNameIsPieceStand);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedClassName);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedSizeClassName);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedPlayerClassName);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedDraggablePieceClassName);
+    expect(screen.getByTestId('gg_piece')).toHaveClass(expectedPieceStandPieceClassName);
     // 駒に表示される文字の確認
-    expect(screen.getByTestId('gg_piece piece')).toHaveTextContent(expectedTextContents);
+    expect(screen.getByTestId('gg_piece')).toHaveTextContent(expectedTextContents);
   });
   // #endregion
 

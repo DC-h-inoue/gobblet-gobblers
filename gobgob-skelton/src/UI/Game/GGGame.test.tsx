@@ -3,7 +3,7 @@ import { act } from 'react-dom/test-utils';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
-import GGGame from '../GGGame';
+import GGGame from './GGGame';
 import store, { changeGameStateAction } from 'utils/test_mock/store';
 import * as helper from 'utils/helper';
 import { PIECE_SIZE, PLAYER } from 'utils/constants';

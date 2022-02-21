@@ -58,6 +58,7 @@ const GGPiece: FC<Props> = ({ className, piece, boardSquareIndex }) => {
   // #region レンダリング処理
   return (
     <Avatar
+      data-testid="gg_piece"
       ref={pieceDragRef}
       classes={{
         root: classNames(

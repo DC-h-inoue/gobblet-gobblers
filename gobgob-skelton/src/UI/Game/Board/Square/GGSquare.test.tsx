@@ -94,7 +94,7 @@ describe('GGPiece', () => {
       expect(screen.getByTestId('gg_piece')).toHaveTextContent(
         JSON.stringify({ piece: mockArgPiece, boardSquareIndex: mockArgBoardSquareIndex })
       );
-      expect(screen.getAllByTestId('gg_piece').length).toBe(1);
+      expect(screen.getAllByTestId('gg_piece')).toHaveLength(1);
     }
   );
 

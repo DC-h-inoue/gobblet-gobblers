@@ -70,7 +70,7 @@ const GGSquare: FC<Props> = ({ pieceHistory, index }) => {
 
   // 盤面のマスに駒が置かれている場合は駒を描画するJSX要素を返す
   return (
-    <div className="gg_square" ref={squareDropRef}>
+    <div className="gg_square" ref={squareDropRef} data-testid="gg_square">
       {pieceHistory.length > 0 && (
         <GGPiece piece={pieceHistory[pieceHistory.length - 1]} boardSquareIndex={index} />
       )}

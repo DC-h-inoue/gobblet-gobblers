@@ -47,11 +47,9 @@ const GGPieceStand: FC<Props> = ({ className, player }) => {
 
   // playerがP1ならP1の駒の、P2ならP2の駒のJSX要素を返す
   return (
-    <div className={classNames('gg_piece-stand', className)}>
+    <div className={classNames('gg_piece-stand', className)} data-testid="gg_piece_stand">
       {(player === PLAYER.P1 ? player1Pieces : player2Pieces).map((piece, index) => (
-        <div className="piece-item" key={index.toString()}>
-          <GGPiece piece={piece} boardSquareIndex={-1} />
-        </div>
+        <GGPiece key={index} className="piece-item" piece={piece} boardSquareIndex={-1} />
       ))}
     </div>
   );

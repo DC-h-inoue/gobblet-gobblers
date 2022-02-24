@@ -40,7 +40,7 @@ const GGBoard: FC<Props> = ({ className }) => {
   // #endregion
   // #region レンダリング処理
   return (
-    <div className={classNames('gg_board', className)}>
+    <div className={classNames('gg_board', className)} data-testid="gg_board">
       {boardPieces.map((pieceHistory, index) => (
         <GGSquare pieceHistory={pieceHistory} index={index} key={index.toString()} />
       ))}

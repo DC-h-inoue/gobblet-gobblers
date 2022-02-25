@@ -10,13 +10,13 @@ import GGHistory from './GGHistory';
 // 関数のモック化
 jest.mock('./HistoryButton/GGHistoryButton', () => {
   return function DummyMock(props: any) {
-    return <div data-testid="gg_history_button">{JSON.stringify(props)}</div>;
+    return <div data-testid="gg_history-button">{JSON.stringify(props)}</div>;
   };
 });
 
 jest.mock('./RestartButton/GGRestartButton', () => {
   return function DummyMock(props: any) {
-    return <div data-testid="gg_restart_button">{JSON.stringify(props)}</div>;
+    return <div data-testid="gg_restart-button">{JSON.stringify(props)}</div>;
   };
 });
 
@@ -180,15 +180,15 @@ describe('GGHistory', () => {
     expect(screen.getByTestId('gg_history')).toHaveClass(expectedTestClassName);
     expect(screen.getByTestId('history-board')).toBeInTheDocument();
     // GGRestartButtonコンポーネントの呼び出し確認
-    expect(screen.getAllByTestId('gg_restart_button')).toHaveLength(1);
-    expect(screen.getByTestId('gg_restart_button')).toHaveTextContent(
+    expect(screen.getAllByTestId('gg_restart-button')).toHaveLength(1);
+    expect(screen.getByTestId('gg_restart-button')).toHaveTextContent(
       JSON.stringify({
         className: 'restart-button',
         initialGameState: inputHistoryState.gameHistory[0],
       })
     );
     // GGHistoryButtonコンポーネントの呼び出し確認
-    expect(screen.queryByTestId('gg_history_button')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('gg_history-button')).not.toBeInTheDocument();
   });
 
   test('No.2：・props で渡ったクラス名"gg-test"がGGHistoryコンポーネントのクラス名に設定されていること\n\t    ・historyState.gameHistory の要素数が2以上の時、適切なpropsでGGHistoryButtonコンポーネントが描画されていること\n\t    ・適切なpropsでGGRestartButtonが描画されていること', () => {
@@ -215,18 +215,18 @@ describe('GGHistory', () => {
     expect(screen.getByTestId('gg_history')).toHaveClass(expectedTestClassName);
     expect(screen.getByTestId('history-board')).toBeInTheDocument();
     // GGRestartButtonコンポーネントの呼び出し確認
-    expect(screen.getAllByTestId('gg_restart_button')).toHaveLength(1);
-    expect(screen.getByTestId('gg_restart_button')).toHaveTextContent(
+    expect(screen.getAllByTestId('gg_restart-button')).toHaveLength(1);
+    expect(screen.getByTestId('gg_restart-button')).toHaveTextContent(
       JSON.stringify({
         className: 'restart-button',
         initialGameState: inputHistoryState.gameHistory[0],
       })
     );
     // GGHistoryButtonコンポーネントの呼び出し確認
-    expect(screen.getAllByTestId('gg_history_button')).toHaveLength(
+    expect(screen.getAllByTestId('gg_history-button')).toHaveLength(
       inputHistoryState.gameHistory.length - 1
     );
-    screen.getAllByTestId('gg_history_button').forEach((component, index) => {
+    screen.getAllByTestId('gg_history-button').forEach((component, index) => {
       expect(component).toHaveTextContent(
         JSON.stringify({
           prevGameState: inputHistoryState.gameHistory[index + 1],
@@ -255,18 +255,18 @@ describe('GGHistory', () => {
     // 期待値の確認
     expect(screen.getByTestId('gg_history')).not.toHaveClass(testClassName01);
     // GGRestartButtonコンポーネントの呼び出し確認
-    expect(screen.getAllByTestId('gg_restart_button')).toHaveLength(1);
-    expect(screen.getByTestId('gg_restart_button')).toHaveTextContent(
+    expect(screen.getAllByTestId('gg_restart-button')).toHaveLength(1);
+    expect(screen.getByTestId('gg_restart-button')).toHaveTextContent(
       JSON.stringify({
         className: 'restart-button',
         initialGameState: inputHistoryState.gameHistory[0],
       })
     );
     // GGHistoryButtonコンポーネントの呼び出し確認
-    expect(screen.getAllByTestId('gg_history_button')).toHaveLength(
+    expect(screen.getAllByTestId('gg_history-button')).toHaveLength(
       inputHistoryState.gameHistory.length - 1
     );
-    screen.getAllByTestId('gg_history_button').forEach((component, index) => {
+    screen.getAllByTestId('gg_history-button').forEach((component, index) => {
       expect(component).toHaveTextContent(
         JSON.stringify({
           prevGameState: inputHistoryState.gameHistory[index + 1],

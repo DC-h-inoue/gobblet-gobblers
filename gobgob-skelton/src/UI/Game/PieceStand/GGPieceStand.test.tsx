@@ -123,8 +123,8 @@ describe('GGPieceStand', () => {
       });
 
       // 期待値の確認
-      expect(screen.getByTestId('gg_piece_stand')).toBeInTheDocument();
-      expect(screen.getByTestId('gg_piece_stand')).toHaveClass(expectedTestClassName);
+      expect(screen.getByTestId('gg_piece-stand')).toBeInTheDocument();
+      expect(screen.getByTestId('gg_piece-stand')).toHaveClass(expectedTestClassName);
       // GGPieceコンポーネントの呼び出し回数
       expect(screen.queryByTestId('gg_piece')).not.toBeInTheDocument();
     }
@@ -148,8 +148,8 @@ describe('GGPieceStand', () => {
     });
 
     // 期待値の確認
-    expect(screen.getByTestId('gg_piece_stand')).toBeInTheDocument();
-    expect(screen.getByTestId('gg_piece_stand')).not.toHaveClass(testClassName01);
+    expect(screen.getByTestId('gg_piece-stand')).toBeInTheDocument();
+    expect(screen.getByTestId('gg_piece-stand')).not.toHaveClass(testClassName01);
     // GGPieceコンポーネントの呼び出し回数
     screen.getAllByTestId('gg_piece').forEach((component, index) => {
       expect(component).toHaveTextContent(
@@ -185,7 +185,7 @@ describe('GGPieceStand', () => {
     });
 
     // 期待値の確認
-    expect(screen.getByTestId('gg_piece_stand')).toHaveClass(expectedTestClassName);
+    expect(screen.getByTestId('gg_piece-stand')).toHaveClass(expectedTestClassName);
     // GGPieceコンポーネントの呼び出し回数
     screen.getAllByTestId('gg_piece').forEach((component, index) => {
       expect(component).toHaveTextContent(

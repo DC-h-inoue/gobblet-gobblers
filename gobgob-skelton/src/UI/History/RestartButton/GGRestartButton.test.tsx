@@ -101,7 +101,7 @@ describe('GGRestartButton', () => {
 
       // 期待値の確認
       // ボタンコンポーネントのクラス名
-      expect(screen.getByTestId('gg_restart_button')).toHaveClass(expectedClassName);
+      expect(screen.getByTestId('gg_restart-button')).toHaveClass(expectedClassName);
     }
   );
 
@@ -114,7 +114,7 @@ describe('GGRestartButton', () => {
 
     // 期待値の確認
     // ボタンコンポーネントのクラス名
-    expect(screen.getByTestId('gg_restart_button')).not.toHaveClass(testClassName01);
+    expect(screen.getByTestId('gg_restart-button')).not.toHaveClass(testClassName01);
   });
 
   test('No.4：・Restartボタンクリック時の確認画面でOKボタンをクリックした際に、適切な引数で deleteHistoryアクション と goBackToPrevBoardアクション が実行されていること', () => {
@@ -137,7 +137,7 @@ describe('GGRestartButton', () => {
     );
 
     // テスト対象コンポーネントのイベントハンドラ実行
-    fireEvent.click(screen.getByTestId('gg_restart_button'));
+    fireEvent.click(screen.getByTestId('gg_restart-button'));
 
     // 期待値の確認
     // 各関数の呼び出し回数確認
@@ -163,7 +163,7 @@ describe('GGRestartButton', () => {
     );
 
     // テスト対象コンポーネントのイベントハンドラ実行
-    fireEvent.click(screen.getByTestId('gg_restart_button'));
+    fireEvent.click(screen.getByTestId('gg_restart-button'));
 
     // 期待値の確認
     // 各関数の呼び出し回数確認

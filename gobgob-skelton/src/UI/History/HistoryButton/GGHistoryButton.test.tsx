@@ -150,8 +150,8 @@ describe('GGHistoryButton', () => {
 
       // 期待値の確認
       // ボタンコンポーネントのクラス名
-      expect(wrapper.find('.gg_history_button').hasClass(expectedClassName)).toBe(true);
-      expect(wrapper.find('.gg_history_button').hasClass(expectedButtonClass)).toBe(true);
+      expect(wrapper.find('.gg_history-button').hasClass(expectedClassName)).toBe(true);
+      expect(wrapper.find('.gg_history-button').hasClass(expectedButtonClass)).toBe(true);
 
       // ボタンコンポーネントの表示メッセージ
       expect(wrapper.text()).toBe(expectedButtonMessage);
@@ -173,7 +173,7 @@ describe('GGHistoryButton', () => {
     );
 
     // テスト対象コンポーネントのイベントハンドラ実行
-    wrapper.find('.gg_history_button').simulate('click');
+    wrapper.find('.gg_history-button').simulate('click');
 
     // 各関数の呼び出し回数
     expect(goBackToPrevBoardActionSpy).toHaveBeenCalledTimes(1);

@@ -42,10 +42,10 @@ const GGHistory: FC<Props> = ({ className }) => {
 
   // ゲームの進行履歴の先頭以外の要素を履歴ボタンとして展開する
   return (
-    <div className={classNames('gg_history', className)}>
+    <div className={classNames('gg_history', className)} data-testid="gg_history">
       Play Histories
       <GGRestartButton className="restart-button" initialGameState={gameHistory[0]} key={0} />
-      <div className="history-board">
+      <div className="history-board" data-testid="history-board">
         {gameHistory.slice(1).map((prevGameState, index) => (
           <GGHistoryButton
             prevGameState={prevGameState}

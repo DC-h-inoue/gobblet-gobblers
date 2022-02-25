@@ -57,6 +57,7 @@ const GGRestartButton: FC<Props> = ({ className, initialGameState }) => {
     <Button
       className={classNames('gg_restart_button restart-button', className)}
       onClick={handleRestartButtonClick}
+      data-testid="gg_restart_button"
     >
       Restart
     </Button>

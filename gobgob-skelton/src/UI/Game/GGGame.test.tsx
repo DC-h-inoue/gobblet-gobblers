@@ -10,8 +10,8 @@ import { PIECE_SIZE, PLAYER } from 'utils/constants';
 
 // 関数のモック化
 jest.mock('UI/History/GGHistory', () => 'GGHistory');
-jest.mock('../Board/GGBoard', () => 'GGBoard');
-jest.mock('../PieceStand/GGPieceStand', () => 'GGPieceStand');
+jest.mock('./Board/GGBoard', () => 'GGBoard');
+jest.mock('./PieceStand/GGPieceStand', () => 'GGPieceStand');
 
 const checkWinnerSpy = jest.spyOn(helper, 'checkWinner');
 const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});

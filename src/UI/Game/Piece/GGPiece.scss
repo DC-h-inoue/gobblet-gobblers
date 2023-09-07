@@ -1,0 +1,42 @@
+@import '~styles/variables';
+
+.gg_piece {
+  &.piece {
+    font-size: $font-size-large * 2;
+    cursor: not-allowed;
+
+    &.small {
+      width: $space * 10;
+      height: $space * 10;
+    }
+
+    &.medium {
+      width: $space * 12.5;
+      height: $space * 12.5;
+    }
+
+    &.large {
+      width: $space * 15;
+      height: $space * 15;
+    }
+    &.p1 {
+      background-color: $gg-primary-color;
+    }
+    &.p2 {
+      background-color: $gg-secondary-color;
+    }
+
+    &.is-standing-piece-stand {
+      opacity: 0.6;
+    }
+
+    &.is-draggable {
+      opacity: 1;
+      cursor: grab;
+    }
+
+    &.is-dragging {
+      opacity: 0.3;
+    }
+  }
+}

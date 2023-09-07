@@ -9,6 +9,7 @@ import store from './store';
 
 import './App.scss';
 // #endregion
+
 // #region 型定義
 // #endregion
 // #region 定数
